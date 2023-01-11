@@ -7,7 +7,7 @@ public class Account {
     private int accountNumber;
     private Client primaryHolder;
     private Client secondaryHolder;
-    private int balance;
+    private double balance;
 
 
     // Constructor
@@ -31,10 +31,22 @@ public class Account {
     public Client getSecondaryHolder() {return secondaryHolder;}
     public void setSecondaryHolder(Client secondaryHolder) {this.secondaryHolder = secondaryHolder;}
 
-    public int getBalance() {return balance;}
-    public void setBalance(int balance) {this.balance = balance;}
+    public double getBalance() {return balance;}
+    public void setBalance(double balance) {this.balance = balance;}
 
 
-    // Methods
+    // Function Methods
+    
+    public void deposit() {
+    }
+
+    public void withdrawal() {
+    }
+
+    public void transfer() {
+    }
+
+
+    // Verification Methods
     
 }

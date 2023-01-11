@@ -35,6 +35,12 @@ public abstract class Cards {
     public void setPin(int pin) {this.pin = pin;}
 
 
-    // Methods
+    // Function Methods
     
+    public void changePin() {
+    }
+
+
+    // Verification Methods
 }
+

@@ -19,8 +19,16 @@ public class DebitCard extends Cards {
 
     public int getWithdrawnAmountPerDay() {return withdrawnAmountPerDay;}
     public void setWithdrawnAmountPerDay(int withdrawnAmountPerDay) {this.withdrawnAmountPerDay = withdrawnAmountPerDay;}
+    
+    
+    // Function Methods
+
+    @Override
+    public void changePin() {
+        super.changePin();
+    }
 
 
-    // Methods
+    // Verification Methods
 
 }

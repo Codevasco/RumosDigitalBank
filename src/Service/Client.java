@@ -57,6 +57,15 @@ public class Client {
     public void setOccupation(String occupation) {this.occupation = occupation;}
 
 
-    // Methods
-        
+    // Function Methods
+
+    public void requestCard() {
+    }
+
+    public void cancelCard() {
+    }
+
+
+    // Verification Methods
+
 }
