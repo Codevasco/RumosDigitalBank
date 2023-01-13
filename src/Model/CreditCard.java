@@ -1,4 +1,5 @@
-package Service;
+package Model;
+
 public class CreditCard extends Cards {
 
     
