@@ -5,7 +5,7 @@ import org.bnpparibas.rdb.model.Account;
 import org.bnpparibas.rdb.model.Client;
 import org.bnpparibas.rdb.model.Transaction;
 import org.bnpparibas.rdb.repository.*;
-import org.bnpparibas.rdb.service.builder.BankingBuilder;
+import org.bnpparibas.rdb.model.builder.BankingBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +37,7 @@ public class BankingServiceImpl implements BankingService {
      * Returns a list of all existing clients
      */
     @Override
-    public List<Client> findAll() {
+    public List<Client> findAllClients() {
 
         List<Client> clients = new ArrayList<>();
         Iterable<Client> clientList = clientRepository.findAll();
@@ -47,6 +47,21 @@ public class BankingServiceImpl implements BankingService {
         });
 
         return clients;
+    }
+
+    /**
+     * Finds client by fiscal number (NIF)
+     */
+    @Override
+    public ResponseEntity<Object> findByNif(Long nif) {
+
+        Optional<Client> clientOptional = clientRepository.findByNif(nif);
+
+        if (clientOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.FOUND).body(bankingBuilder.clientBuilder(clientOptional.get()));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found.");
+        }
     }
 
     /**
@@ -60,22 +75,6 @@ public class BankingServiceImpl implements BankingService {
         clientRepository.save(client);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("New client created successfully.");
-    }
-
-    /**
-     * Finds client by fiscal number (NIF)
-     */
-    @Override
-    public ResponseEntity<Object> findByNif(Long nif) {
-
-        Optional<Client> clientOptional = clientRepository.findByNif(nif);
-
-        if  (clientOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.FOUND).body(bankingBuilder.clientBuilder(clientOptional.get()));
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found.");
-        }
-
     }
 
     /**
@@ -103,6 +102,21 @@ public class BankingServiceImpl implements BankingService {
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Client does not exist.");
         }
+    }
+
+    /**
+     * Returns a list of all existing accounts
+     */
+    @Override
+    public List<Account> findAllAccounts() {
+        List<Account> accounts = new ArrayList<>();
+        Iterable<Account> accountList = accountRepository.findAll();
+
+        accountList.forEach(account -> {
+            accounts.add(bankingBuilder.accountBuilder(account));
+        });
+
+        return accounts;
     }
 
     /**
@@ -138,6 +152,18 @@ public class BankingServiceImpl implements BankingService {
         }
     }
 
+    @Override
+    public ResponseEntity<Object> updateAccount(Account account, Long nif) {
+        // TODO
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Object> deleteAccount(Long accountNumber) {
+        // TODO
+        return null;
+    }
+
     /**
      * Shows the transaction history for a specified account
      */
@@ -146,6 +172,4 @@ public class BankingServiceImpl implements BankingService {
         // TODO
         return null;
     }
-
-
 }

@@ -1,4 +1,4 @@
-package org.bnpparibas.rdb.controller;
+package org.bnpparibas.rdb.controller.rest;
 
 import org.bnpparibas.rdb.model.Account;
 import org.bnpparibas.rdb.model.Transaction;
@@ -27,9 +27,7 @@ public class AccountController {
     }
 
     @GetMapping("/transaction/{nif}")
-    public List<Transaction> getFindTransactionByAccountNumber(@PathVariable Long accountNumber) {
+    public List<Transaction> getFindTransactionsByAccountNumber(@PathVariable Long accountNumber) {
         return bankingService.findTransanctionsByAccountNumber(accountNumber);
     }
-
-
 }

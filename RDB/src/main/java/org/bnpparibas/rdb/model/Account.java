@@ -38,5 +38,4 @@ public class Account {
 
     @Temporal(TemporalType.DATE)
     private Date accountUpdateDate;
-
 }

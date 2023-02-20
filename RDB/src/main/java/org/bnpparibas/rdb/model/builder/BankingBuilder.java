@@ -1,4 +1,4 @@
-package org.bnpparibas.rdb.service.builder;
+package org.bnpparibas.rdb.model.builder;
 
 import org.bnpparibas.rdb.model.Account;
 import org.bnpparibas.rdb.model.Client;
