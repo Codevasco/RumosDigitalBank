@@ -1,12 +1,9 @@
-package org.bnpparibas.rdb.model.domain;
+package org.bnpparibas.rdb.domain;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bnpparibas.rdb.model.persistence.Client;
-import org.bnpparibas.rdb.model.persistence.Transaction;
 
 import java.util.ArrayList;
 import java.util.Date;

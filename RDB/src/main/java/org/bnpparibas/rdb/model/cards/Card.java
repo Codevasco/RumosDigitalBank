@@ -1,4 +1,4 @@
-package org.bnpparibas.rdb.model.persistence.cards;
+package org.bnpparibas.rdb.model.cards;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

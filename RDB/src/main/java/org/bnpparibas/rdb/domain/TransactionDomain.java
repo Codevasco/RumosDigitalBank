@@ -1,4 +1,4 @@
-package org.bnpparibas.rdb.model.domain;
+package org.bnpparibas.rdb.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

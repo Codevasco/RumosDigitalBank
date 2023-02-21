@@ -1,6 +1,6 @@
 package org.bnpparibas.rdb.repository;
 
-import org.bnpparibas.rdb.model.persistence.Account;
+import org.bnpparibas.rdb.model.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

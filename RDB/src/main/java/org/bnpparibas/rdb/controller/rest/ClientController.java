@@ -1,6 +1,7 @@
 package org.bnpparibas.rdb.controller.rest;
 
-import org.bnpparibas.rdb.model.persistence.Client;
+import org.bnpparibas.rdb.domain.ClientDomain;
+import org.bnpparibas.rdb.model.Client;
 import org.bnpparibas.rdb.service.BankingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +17,13 @@ public class ClientController {
     private BankingServiceImpl bankingService;
 
     @GetMapping(path = "/clients")
-    public List<Client> getAllClients() {
+    public List<ClientDomain> getAllClients() {
         return bankingService.findAllClients();
     }
 
     @PostMapping(path = "/add/{nif}")
-    public ResponseEntity<Object> addClient(@RequestBody Client client) {
-        return bankingService.addClient(client);
+    public ResponseEntity<Object> addClient(@RequestBody ClientDomain clientDomain, Long nif) {
+        return bankingService.addClient(clientDomain, nif);
     }
 
     @GetMapping(path = "/{nif}")
