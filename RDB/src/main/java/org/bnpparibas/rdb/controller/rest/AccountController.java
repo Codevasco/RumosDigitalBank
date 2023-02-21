@@ -26,7 +26,7 @@ public class AccountController {
         return bankingService.addAccount(account, nif);
     }
 
-    @GetMapping("/transaction/{nif}")
+    @GetMapping("/transaction/{accountNumber}")
     public List<Transaction> getFindTransactionsByAccountNumber(@PathVariable Long accountNumber) {
         return bankingService.findTransanctionsByAccountNumber(accountNumber);
     }
