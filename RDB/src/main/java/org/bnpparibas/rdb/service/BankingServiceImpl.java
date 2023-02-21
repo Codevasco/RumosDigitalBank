@@ -152,12 +152,18 @@ public class BankingServiceImpl implements BankingService {
         }
     }
 
+    /**
+     * Updates account details
+     */
     @Override
     public ResponseEntity<Object> updateAccount(Account account, Long nif) {
         // TODO
         return null;
     }
 
+    /**
+     * Deletes an existing account
+     */
     @Override
     public ResponseEntity<Object> deleteAccount(Long accountNumber) {
         // TODO
