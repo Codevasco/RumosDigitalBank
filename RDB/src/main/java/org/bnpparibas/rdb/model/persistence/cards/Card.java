@@ -1,4 +1,4 @@
-package org.bnpparibas.rdb.model.cards;
+package org.bnpparibas.rdb.model.persistence.cards;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -9,5 +9,5 @@ import java.util.UUID;
 public class Card {
 
     @Id
-    private UUID id;
+    private UUID cardId;
 }

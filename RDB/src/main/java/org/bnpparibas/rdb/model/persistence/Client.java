@@ -1,4 +1,4 @@
-package org.bnpparibas.rdb.model;
+package org.bnpparibas.rdb.model.persistence;
 
 import jakarta.persistence.*;
 import lombok.*;

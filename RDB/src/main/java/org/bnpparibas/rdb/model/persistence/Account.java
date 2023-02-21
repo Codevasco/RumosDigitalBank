@@ -1,4 +1,4 @@
-package org.bnpparibas.rdb.model;
+package org.bnpparibas.rdb.model.persistence;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,7 +30,7 @@ public class Account {
 
     private Double balance;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     private ArrayList<Transaction> transactionHistory;
 
     @Temporal(TemporalType.DATE)

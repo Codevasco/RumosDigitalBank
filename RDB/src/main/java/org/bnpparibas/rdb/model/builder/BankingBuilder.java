@@ -1,7 +1,7 @@
 package org.bnpparibas.rdb.model.builder;
 
-import org.bnpparibas.rdb.model.Account;
-import org.bnpparibas.rdb.model.Client;
+import org.bnpparibas.rdb.model.persistence.Account;
+import org.bnpparibas.rdb.model.persistence.Client;
 
 import org.springframework.stereotype.Component;
 

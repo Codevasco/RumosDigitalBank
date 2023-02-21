@@ -1,9 +1,9 @@
 package org.bnpparibas.rdb.service;
 
 import jakarta.transaction.Transactional;
-import org.bnpparibas.rdb.model.Account;
-import org.bnpparibas.rdb.model.Client;
-import org.bnpparibas.rdb.model.Transaction;
+import org.bnpparibas.rdb.model.persistence.Account;
+import org.bnpparibas.rdb.model.persistence.Client;
+import org.bnpparibas.rdb.model.persistence.Transaction;
 import org.bnpparibas.rdb.repository.*;
 import org.bnpparibas.rdb.model.builder.BankingBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
