@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface ClientRepository extends JpaRepository<ClientEntity, String> {
-    Optional<ClientEntity> findByNif(Long nif);
+    Optional<ClientEntity> findByFiscalNumber(Long fiscalNumber);
 }

@@ -11,23 +11,23 @@ import java.util.List;
 
 public interface BankingService {
 
-    List<Client> findAllClients(); // TODO Test Use-Case  - POSTMAN
+    List<Client> findAllClients();
 
-    ResponseEntity<Object> findByNif(Long nif);
+    ResponseEntity<Object> findByFiscalNumber(Long fiscalNumber);
 
-    ResponseEntity<Object> addClient(Client client, Long nif);
+    ResponseEntity<Object> addClient(Client client, Long fiscalNumber);
 
-    ResponseEntity<Object> updateClient(ClientEntity clientEntity, Long nif);
+    ResponseEntity<Object> updateClient(ClientEntity clientEntity, Long fiscalNumber);
 
-    ResponseEntity<Object> deleteClient(Long nif);
+    ResponseEntity<Object> deleteClient(Long fiscalNumber);
 
-    List<Account> findAllAccounts(); // TODO Test Use-Case - POSTMAN
+    List<Account> findAllAccounts();
 
     ResponseEntity<Object> findByAccountNumber(Long accountNumber);
 
-    ResponseEntity<Object> addAccount(Account account, Long nif);
+    ResponseEntity<Object> addAccount(Account account, Long fiscalNumber);
 
-    ResponseEntity<Object> updateAccount(AccountEntity account, Long nif);
+    ResponseEntity<Object> updateAccount(AccountEntity account, Long fiscalNumber);
 
     ResponseEntity<Object> deleteAccount(Long accountNumber);
 

@@ -38,7 +38,7 @@ public class BankingServiceImpl implements BankingService {
     /**
      * Returns a list of all existing clients
      */
-    @Override // TODO POSTMAN
+    @Override
     public List<Client> findAllClients() {
 
         List<Client> clients = new ArrayList<>();
@@ -54,33 +54,33 @@ public class BankingServiceImpl implements BankingService {
     /**
      * Finds client by fiscal number (NIF)
      */
-    @Override // TODO FIX
-    public ResponseEntity<Object> findByNif(Long nif) {
+    @Override
+    public ResponseEntity<Object> findByFiscalNumber(Long fiscalNumber) {
 
-        Optional<ClientEntity> clientOptional = clientRepository.findByNif(nif);
-        return null;
-        /* return clientOptional.<ResponseEntity<Object>>map(clientEntity ->
-                ResponseEntity.status(HttpStatus.FOUND).body(bankingBuilder.convertToClientEntity(clientEntity)))
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found.")); */
+        Optional<ClientEntity> clientOptional = clientRepository.findByFiscalNumber(fiscalNumber);
+
+        return clientOptional.<ResponseEntity<Object>>map(client ->
+                        ResponseEntity.status(HttpStatus.FOUND).body(bankingBuilder.convertToClientModel(client)))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found."));
     }
 
     /**
      * Creates a new client
      */
-    @Override // TODO FIX
-    public ResponseEntity<Object> addClient(Client client, Long nif) {
+    @Override
+    public ResponseEntity<Object> addClient(Client client, Long fiscalNumber) {
 
-        Optional<ClientEntity> clientOptional = clientRepository.findByNif(nif);
+        Optional<ClientEntity> clientOptional = clientRepository.findByFiscalNumber(fiscalNumber);
 
-        /* if (clientOptional.isEmpty()) {
-            ClientEntity clientEntity = bankingBuilder.convertToClientModel(client);
+        if (clientOptional.isEmpty()) {
+            ClientEntity clientEntity = bankingBuilder.convertToClientEntity(client);
             clientEntity.setClientCreationDate(new Date());
             clientRepository.save(clientEntity);
             return ResponseEntity.status(HttpStatus.CREATED).body("New client created successfully.");
+
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Client already exists.");
-        } */
-        return null;
+        }
     }
 
     /**
@@ -95,9 +95,9 @@ public class BankingServiceImpl implements BankingService {
      * Deletes an existing client
      */
     @Override
-    public ResponseEntity<Object> deleteClient(Long nif) {
+    public ResponseEntity<Object> deleteClient(Long fiscalNumber) {
 
-        Optional<ClientEntity> clientOptional = clientRepository.findByNif(nif);
+        Optional<ClientEntity> clientOptional = clientRepository.findByFiscalNumber(fiscalNumber);
 
         if (clientOptional.isPresent()) {
             ClientEntity existingClientEntity = clientOptional.get();
@@ -112,14 +112,14 @@ public class BankingServiceImpl implements BankingService {
     /**
      * Returns a list of all existing accounts
      */
-    @Override // TODO FIX
+    @Override // TODO CONTROLLER
     public List<Account> findAllAccounts() {
 
         List<Account> accounts = new ArrayList<>();
         Iterable<AccountEntity> accountList = accountRepository.findAll();
 
         accountList.forEach(account -> {
-            accounts.add(bankingBuilder.convertToAccountEntity(account));
+            accounts.add(bankingBuilder.convertToAccountModel(account));
         });
 
         return accounts;
@@ -128,26 +128,26 @@ public class BankingServiceImpl implements BankingService {
     /**
      * Finds account by account number
      */
-    @Override // TODO CHECK
+    @Override // TODO CONTROLLER
     public ResponseEntity<Object> findByAccountNumber(Long accountNumber) {
 
         Optional<AccountEntity> accountOptional = accountRepository.findByAccountNumber(accountNumber);
 
-        return accountOptional.<ResponseEntity<Object>>map(accountEntity ->
-                ResponseEntity.status(HttpStatus.FOUND).body(bankingBuilder.convertToAccountEntity(accountEntity)))
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account " + accountNumber + " does not exist."));
+        return accountOptional.<ResponseEntity<Object>>map(account ->
+                        ResponseEntity.status(HttpStatus.FOUND).body(bankingBuilder.convertToAccountModel(account)))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account does not exist."));
     }
 
     /**
      * Creates a new account
      */
-    @Override // TODO CHECK
-    public ResponseEntity<Object> addAccount(Account account, Long nif) {
+    @Override
+    public ResponseEntity<Object> addAccount(Account account, Long fiscalNumber) {
 
-        Optional<ClientEntity> clientOptional = clientRepository.findByNif(nif);
+        Optional<ClientEntity> clientOptional = clientRepository.findByFiscalNumber(fiscalNumber);
 
         if (clientOptional.isPresent()) {
-            accountRepository.save(bankingBuilder.convertToAccountModel(account));
+            accountRepository.save(bankingBuilder.convertToAccountEntity(account));
             return ResponseEntity.status(HttpStatus.CREATED).body("Account created successfully.");
 
         } else {

@@ -19,8 +19,8 @@ public class ClientEntity {
     @Column(name = "CLIENT_ID", nullable = false)
     private UUID clientId;
 
-    @Column(name = "NIF", nullable = false, updatable = false)
-    private Long nif;
+    @Column(name = "FISCAL_NUMBER", nullable = false, updatable = false)
+    private Long fiscalNumber;
 
     @Column(name = "FIRST_NAME")
     private String firstName;

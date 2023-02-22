@@ -16,7 +16,7 @@ public class Client {
 
     private UUID clientId;
 
-    private Long nif;
+    private Long fiscalNumber;
 
     private String firstName;
 

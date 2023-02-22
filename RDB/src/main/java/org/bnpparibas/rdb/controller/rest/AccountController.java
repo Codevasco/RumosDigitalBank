@@ -1,6 +1,7 @@
 package org.bnpparibas.rdb.controller.rest;
 
 import org.bnpparibas.rdb.model.Account;
+import org.bnpparibas.rdb.model.Client;
 import org.bnpparibas.rdb.model.entity.TransactionEntity;
 import org.bnpparibas.rdb.service.BankingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,19 +12,24 @@ import java.util.List;
 
 @RestController
 @RequestMapping("accounts")
-public class AccountController {
+public class AccountController { // TODO POSTMAN
 
     @Autowired
     private BankingServiceImpl bankingService;
 
-    @GetMapping("/{nif}")
-    public ResponseEntity<Object> getFindByNif(@PathVariable Long nif) {
-        return bankingService.findByNif(nif);
+    @GetMapping(path = "/account-directory")
+    public List<Account> getAllAccounts() {
+        return bankingService.findAllAccounts();
     }
 
-    @PostMapping("/add/{nif}")
-    public ResponseEntity<Object> getAddAccount(@RequestBody Account account, @PathVariable Long nif) {
-        return bankingService.addAccount(account, nif);
+    @GetMapping("/{accountNumber}")
+    public ResponseEntity<Object> getFindByAccountNumber(@PathVariable Long accountNumber) {
+        return bankingService.findByAccountNumber(accountNumber);
+    }
+
+    @PostMapping("/add/{fiscalNumber}")
+    public ResponseEntity<Object> getAddAccount(@RequestBody Account account, @PathVariable Long fiscalNumber) {
+        return bankingService.addAccount(account, fiscalNumber);
     }
 
     @GetMapping("/transaction/{accountNumber}")

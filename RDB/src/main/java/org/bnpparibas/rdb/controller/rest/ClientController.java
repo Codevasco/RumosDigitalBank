@@ -11,34 +11,34 @@ import java.util.List;
 
 @RestController
 @RequestMapping("clients")
-public class ClientController {
+public class ClientController { // TODO POSTMAN
 
     @Autowired
     private BankingServiceImpl bankingService;
 
-    @GetMapping(path = "/clients")
+    @GetMapping(path = "/client-directory")
     public List<Client> getAllClients() {
         return bankingService.findAllClients();
     }
 
-    @PostMapping(path = "/add/{nif}")
+    @GetMapping(path = "/{fiscalNumber}")
+    public ResponseEntity<Object> getClient(@PathVariable Long fiscalNumber) {
+        return bankingService.findByFiscalNumber(fiscalNumber);
+    }
+
+    @PostMapping(path = "/add/{fiscalNumber}")
     public ResponseEntity<Object> addClient(@RequestBody Client client, Long nif) {
         return bankingService.addClient(client, nif);
     }
 
-    @GetMapping(path = "/{nif}")
-    public ResponseEntity<Object> getClient(@PathVariable Long nif) {
-        return bankingService.findByNif(nif);
+    @GetMapping(path = "/update/{fiscalNumber}")
+    public ResponseEntity<Object> updateClient(@RequestBody ClientEntity clientEntity, Long fiscalNumber) {
+        return bankingService.updateClient(clientEntity, fiscalNumber);
     }
 
-    @GetMapping(path = "/update/{nif}")
-    public ResponseEntity<Object> updateClient(@RequestBody ClientEntity clientEntity, Long nif) {
-        return bankingService.updateClient(clientEntity, nif);
-    }
-
-    @DeleteMapping(path = "/delete/{nif}")
-    public ResponseEntity<Object> deleteClient(@PathVariable Long nif) {
-        return bankingService.deleteClient(nif);
+    @DeleteMapping(path = "/delete/{fiscalNumber}")
+    public ResponseEntity<Object> deleteClient(@PathVariable Long fiscalNumber) {
+        return bankingService.deleteClient(fiscalNumber);
     }
 
 }

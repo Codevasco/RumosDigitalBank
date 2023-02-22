@@ -17,7 +17,7 @@ public class BankingBuilder {
     public Client convertToClientModel(ClientEntity clientEntity) {
 
         return Client.builder()
-                .nif(clientEntity.getNif())
+                .fiscalNumber(clientEntity.getFiscalNumber())
                 .firstName(clientEntity.getFirstName())
                 .lastName(clientEntity.getLastName())
                 .password(clientEntity.getPassword())
@@ -28,51 +28,41 @@ public class BankingBuilder {
                 .build();
     }
 
-    public Client convertToClientEntity(ClientEntity clientEntity) {
+    public ClientEntity convertToClientEntity(Client client) {
 
-        return Client.builder()
-                .nif(clientEntity.getNif())
-                .firstName(clientEntity.getFirstName())
-                .lastName(clientEntity.getLastName())
-                .password(clientEntity.getPassword())
-                .telephone(clientEntity.getTelephone())
-                .cellphone(clientEntity.getCellphone())
-                .email(clientEntity.getEmail())
-                .occupation(clientEntity.getOccupation())
+        return ClientEntity.builder()
+                .fiscalNumber(client.getFiscalNumber())
+                .firstName(client.getFirstName())
+                .lastName(client.getLastName())
+                .password(client.getPassword())
+                .telephone(client.getTelephone())
+                .cellphone(client.getCellphone())
+                .email(client.getEmail())
+                .occupation(client.getOccupation())
                 .build();
     }
 
-    public AccountEntity convertToAccountModel(Account account) {
-
-       /* return AccountEntity.builder()
-                .accountNumber(account.getAccountNumber())
-                .primaryHolder(convertToClientModel(account.getPrimaryHolder()))
-                .secondaryHolder(convertToClientModel(account.getSecondaryHolder()))
-                .balance(account.getBalance())
-                .build(); */
-        return null;
-    }
-
-    public Account convertToAccountEntity(AccountEntity accountEntity) {
+    public Account convertToAccountModel(AccountEntity accountEntity) {
 
         return Account.builder()
                 .accountNumber(accountEntity.getAccountNumber())
-                .primaryHolder(convertToClientEntity(accountEntity.getPrimaryHolder()))
-                .secondaryHolder(convertToClientEntity(accountEntity.getSecondaryHolder()))
+                .primaryHolder(convertToClientModel(accountEntity.getPrimaryHolder()))
+                .secondaryHolder(convertToClientModel(accountEntity.getSecondaryHolder()))
                 .balance(accountEntity.getBalance())
                 .build();
     }
 
-    public CardEntity convertToCardModel(Card card) {
+    public AccountEntity convertToAccountEntity(Account account) {
 
-        return CardEntity.builder()
-                .cardPin(card.getCardPin())
-                .cardOwner(card.getCardOwner())
-                .cardAccount(card.getCardAccount())
+        return AccountEntity.builder()
+                .accountNumber(account.getAccountNumber())
+                .primaryHolder(convertToClientEntity(account.getPrimaryHolder()))
+                .secondaryHolder(convertToClientEntity(account.getSecondaryHolder()))
+                .balance(account.getBalance())
                 .build();
     }
 
-    public Card convertToCardEntity(CardEntity cardEntity) {
+    public Card convertToCardModel(CardEntity cardEntity) {
 
         return Card.builder()
                 .cardPin(cardEntity.getCardPin())
@@ -81,22 +71,30 @@ public class BankingBuilder {
                 .build();
     }
 
-    public TransactionEntity convertToTransactionModel(Transaction transaction) {
+    public CardEntity convertToCardEntity(Card card) {
 
-        return TransactionEntity.builder()
-                .accountNumber(transaction.getAccountNumber())
-                .transactionType(transaction.getTransactionType())
-                .transactionAmount(transaction.getTransactionAmount())
+        return CardEntity.builder()
+                .cardPin(card.getCardPin())
+                .cardOwner(card.getCardOwner())
+                .cardAccount(card.getCardAccount())
                 .build();
     }
 
-    public Transaction convertToTransactionEntity (TransactionEntity transactionEntity) {
+    public Transaction convertToTransactionModel(TransactionEntity transactionEntity) {
 
         return Transaction.builder()
                 .accountNumber(transactionEntity.getAccountNumber())
                 .transactionType(transactionEntity.getTransactionType())
                 .transactionAmount(transactionEntity.getTransactionAmount())
                 .build();
+    }
 
+    public TransactionEntity convertToTransactionEntity(Transaction transaction) {
+
+        return TransactionEntity.builder()
+                .accountNumber(transaction.getAccountNumber())
+                .transactionType(transaction.getTransactionType())
+                .transactionAmount(transaction.getTransactionAmount())
+                .build();
     }
 }
