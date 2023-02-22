@@ -59,11 +59,9 @@ public class BankingServiceImpl implements BankingService {
 
         Optional<ClientEntity> clientOptional = clientRepository.findByNif(nif);
 
-        if (clientOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.FOUND).body(bankingBuilder.convertToClientEntity(clientOptional.get()));
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found.");
-        }
+        return clientOptional.<ResponseEntity<Object>>map(clientEntity ->
+                ResponseEntity.status(HttpStatus.FOUND).body(bankingBuilder.convertToClientEntity(clientEntity)))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found."));
     }
 
     /**
@@ -134,12 +132,9 @@ public class BankingServiceImpl implements BankingService {
 
         Optional<AccountEntity> accountOptional = accountRepository.findByAccountNumber(accountNumber);
 
-        if (accountOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.FOUND).body(bankingBuilder.convertToAccountEntity(accountOptional.get()));
-
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account " + accountNumber + " does not exist.");
-        }
+        return accountOptional.<ResponseEntity<Object>>map(accountEntity ->
+                ResponseEntity.status(HttpStatus.FOUND).body(bankingBuilder.convertToAccountEntity(accountEntity)))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account " + accountNumber + " does not exist."));
     }
 
     /**

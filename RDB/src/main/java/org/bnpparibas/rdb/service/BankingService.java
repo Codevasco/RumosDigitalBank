@@ -11,26 +11,25 @@ import java.util.List;
 
 public interface BankingService {
 
-    public List<Client> findAllClients(); // TODO Test Use-Case  - POSTMAN
+    List<Client> findAllClients(); // TODO Test Use-Case  - POSTMAN
 
-    public ResponseEntity<Object> findByNif(Long nif);
+    ResponseEntity<Object> findByNif(Long nif);
 
-    public ResponseEntity<Object> addClient(Client client, Long nif);
+    ResponseEntity<Object> addClient(Client client, Long nif);
 
-    public ResponseEntity<Object> updateClient(ClientEntity clientEntity, Long nif);
+    ResponseEntity<Object> updateClient(ClientEntity clientEntity, Long nif);
 
-    public ResponseEntity<Object> deleteClient(Long nif);
+    ResponseEntity<Object> deleteClient(Long nif);
 
-    public List<Account> findAllAccounts(); // TODO Test Use-Case - POSTMAN
+    List<Account> findAllAccounts(); // TODO Test Use-Case - POSTMAN
 
-    public ResponseEntity<Object> findByAccountNumber(Long accountNumber);
+    ResponseEntity<Object> findByAccountNumber(Long accountNumber);
 
-    public ResponseEntity<Object> addAccount(Account account, Long nif);
+    ResponseEntity<Object> addAccount(Account account, Long nif);
 
-    public ResponseEntity<Object> updateAccount(AccountEntity account, Long nif);
+    ResponseEntity<Object> updateAccount(AccountEntity account, Long nif);
 
-    public ResponseEntity<Object> deleteAccount(Long accountNumber);
+    ResponseEntity<Object> deleteAccount(Long accountNumber);
 
-    public List<TransactionEntity> findTransanctionsByAccountNumber(Long accountNumber);
-
+    List<TransactionEntity> findTransanctionsByAccountNumber(Long accountNumber);
 }
