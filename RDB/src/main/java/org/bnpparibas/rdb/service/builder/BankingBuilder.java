@@ -11,20 +11,20 @@ import org.bnpparibas.rdb.model.entity.ClientEntity;
 import org.bnpparibas.rdb.model.entity.TransactionEntity;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component // TODO FIX
 public class BankingBuilder {
 
-    public ClientEntity convertToClientModel(Client client) {
+    public Client convertToClientModel(ClientEntity clientEntity) {
 
-        return ClientEntity.builder()
-                .nif(client.getNif())
-                .firstName(client.getFirstName())
-                .lastName(client.getLastName())
-                .password(client.getPassword())
-                .telephone(client.getTelephone())
-                .cellphone(client.getCellphone())
-                .email(client.getEmail())
-                .occupation(client.getOccupation())
+        return Client.builder()
+                .nif(clientEntity.getNif())
+                .firstName(clientEntity.getFirstName())
+                .lastName(clientEntity.getLastName())
+                .password(clientEntity.getPassword())
+                .telephone(clientEntity.getTelephone())
+                .cellphone(clientEntity.getCellphone())
+                .email(clientEntity.getEmail())
+                .occupation(clientEntity.getOccupation())
                 .build();
     }
 
@@ -44,12 +44,13 @@ public class BankingBuilder {
 
     public AccountEntity convertToAccountModel(Account account) {
 
-        return AccountEntity.builder()
+       /* return AccountEntity.builder()
                 .accountNumber(account.getAccountNumber())
                 .primaryHolder(convertToClientModel(account.getPrimaryHolder()))
                 .secondaryHolder(convertToClientModel(account.getSecondaryHolder()))
                 .balance(account.getBalance())
-                .build();
+                .build(); */
+        return null;
     }
 
     public Account convertToAccountEntity(AccountEntity accountEntity) {

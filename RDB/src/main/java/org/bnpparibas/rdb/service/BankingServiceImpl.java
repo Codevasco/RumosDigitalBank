@@ -38,15 +38,15 @@ public class BankingServiceImpl implements BankingService {
     /**
      * Returns a list of all existing clients
      */
-    @Override // TODO FIX
+    @Override // TODO POSTMAN
     public List<Client> findAllClients() {
 
         List<Client> clients = new ArrayList<>();
         Iterable<ClientEntity> clientList = clientRepository.findAll();
 
-        /* clientList.forEach(client -> {
+        clientList.forEach(client -> {
             clients.add(bankingBuilder.convertToClientModel(client));
-        }); */
+        });
 
         return clients;
     }
@@ -72,14 +72,15 @@ public class BankingServiceImpl implements BankingService {
 
         Optional<ClientEntity> clientOptional = clientRepository.findByNif(nif);
 
-        if (clientOptional.isEmpty()) {
+        /* if (clientOptional.isEmpty()) {
             ClientEntity clientEntity = bankingBuilder.convertToClientModel(client);
             clientEntity.setClientCreationDate(new Date());
             clientRepository.save(clientEntity);
             return ResponseEntity.status(HttpStatus.CREATED).body("New client created successfully.");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Client already exists.");
-        }
+        } */
+        return null;
     }
 
     /**
