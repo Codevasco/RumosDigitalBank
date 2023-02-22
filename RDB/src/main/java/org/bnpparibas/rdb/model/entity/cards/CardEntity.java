@@ -23,11 +23,14 @@ public class CardEntity {
     @Column(name = "CARD_ID")
     private UUID cardId;
 
+    @Column(name = "CARD_PIN")
     private Integer cardPin;
 
     @OneToOne
+    @JoinColumn(name = "CARD_OWNER_FK")
     private ClientEntity cardOwner;
 
     @OneToOne
-    private AccountEntity account;
+    @JoinColumn(name = "CARD_ACCOUNT_FK")
+    private AccountEntity cardAccount;
 }

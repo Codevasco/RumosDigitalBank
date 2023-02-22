@@ -19,19 +19,25 @@ public class AccountEntity {
     @Column(name = "ACCOUNT_ID")
     private UUID accountId;
 
+    @Column(name = "ACCOUNT_NUMBER")
     private Long accountNumber;
 
     @ManyToOne
+    @JoinColumn(name = "PRIMARY_HOLDER_FK")
     private ClientEntity primaryHolder;
 
     @ManyToOne
+    @JoinColumn(name = "SECONDARY_HOLDER_FK")
     private ClientEntity secondaryHolder;
 
+    @Column(name = "BALANCE")
     private Double balance;
 
     @Temporal(TemporalType.DATE)
+    @Column(name = "DATE_CREATED_ACCOUNT")
     private Date accountCreationDate;
 
     @Temporal(TemporalType.DATE)
+    @Column(name = "DATE_UPDATED_ACCOUNT")
     private Date accountUpdateDate;
 }

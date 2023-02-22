@@ -21,13 +21,16 @@ public class TransactionEntity {
     @Column(name = "TRANSACTION_ID")
     private UUID transactionId;
 
+    @Column(name = "ACCOUNT_NUMBER")
     private Long accountNumber;
 
-    @Temporal(TemporalType.DATE)
-    private Date transactionDate;
-
+    @Column(name = "TRANSACTION_TYPE")
     private String transactionType;
 
+    @Column(name = "TRANSACTION_AMOUNT")
     private String transactionAmount;
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DATE_TRANSACTION")
+    private Date transactionDate;
 }
