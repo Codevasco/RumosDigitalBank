@@ -22,5 +22,5 @@ public class Card {
 
     private ClientEntity cardOwner;
 
-    private AccountEntity account;
+    private AccountEntity cardAccount;
 }
