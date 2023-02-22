@@ -7,10 +7,10 @@ import org.bnpparibas.rdb.model.entity.ClientEntity;
 
 import org.springframework.stereotype.Component;
 
-@Component // TODO FIX
+@Component
 public class BankingBuilder {
 
-    public ClientEntity convertToClientPojo(Client client) {
+    public ClientEntity convertToClientModel(Client client) {
 
         return ClientEntity.builder()
                 .nif(client.getNif())
@@ -38,12 +38,12 @@ public class BankingBuilder {
                 .build();
     }
 
-    public AccountEntity convertToAccountPojo(Account account) {
+    public AccountEntity convertToAccountModel(Account account) {
 
         return AccountEntity.builder()
                 .accountNumber(account.getAccountNumber())
-                .primaryHolder(convertToClientPojo(account.getPrimaryHolder()))
-                .secondaryHolder(convertToClientPojo(account.getSecondaryHolder()))
+                .primaryHolder(convertToClientModel(account.getPrimaryHolder()))
+                .secondaryHolder(convertToClientModel(account.getSecondaryHolder()))
                 .balance(account.getBalance())
                 .build();
     }

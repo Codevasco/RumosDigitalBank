@@ -75,7 +75,7 @@ public class BankingServiceImpl implements BankingService {
         Optional<ClientEntity> clientOptional = clientRepository.findByNif(nif);
 
         if (clientOptional.isEmpty()) {
-            ClientEntity clientEntity = bankingBuilder.convertToClientPojo(client);
+            ClientEntity clientEntity = bankingBuilder.convertToClientModel(client);
             clientEntity.setClientCreationDate(new Date());
             clientRepository.save(clientEntity);
             return ResponseEntity.status(HttpStatus.CREATED).body("New client created successfully.");
@@ -151,7 +151,7 @@ public class BankingServiceImpl implements BankingService {
         Optional<ClientEntity> clientOptional = clientRepository.findByNif(nif);
 
         if (clientOptional.isPresent()) {
-            accountRepository.save(bankingBuilder.convertToAccountPojo(account));
+            accountRepository.save(bankingBuilder.convertToAccountModel(account));
             return ResponseEntity.status(HttpStatus.CREATED).body("Account created successfully.");
 
         } else {

@@ -16,28 +16,28 @@ public class AccountEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ACCOUNT_ID")
+    @Column(name = "ACCOUNT_ID", nullable = false)
     private UUID accountId;
 
-    @Column(name = "ACCOUNT_NUMBER")
+    @Column(name = "ACCOUNT_NUMBER", nullable = false, updatable = false)
     private Long accountNumber;
 
     @ManyToOne
-    @JoinColumn(name = "PRIMARY_HOLDER_FK")
+    @JoinColumn(name = "PRIMARY_HOLDER_FK", nullable = false)
     private ClientEntity primaryHolder;
 
     @ManyToOne
-    @JoinColumn(name = "SECONDARY_HOLDER_FK")
+    @JoinColumn(name = "SECONDARY_HOLDER_FK", nullable = false)
     private ClientEntity secondaryHolder;
 
-    @Column(name = "BALANCE")
+    @Column(name = "BALANCE", nullable = false)
     private Double balance;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "DATE_CREATED_ACCOUNT")
+    @Column(name = "DATE_CREATED_ACCOUNT", nullable = false)
     private Date accountCreationDate;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "DATE_UPDATED_ACCOUNT")
+    @Column(name = "DATE_UPDATED_ACCOUNT", nullable = false)
     private Date accountUpdateDate;
 }

@@ -18,19 +18,19 @@ import java.util.UUID;
 public class TransactionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "TRANSACTION_ID")
+    @Column(name = "TRANSACTION_ID", nullable = false)
     private UUID transactionId;
 
-    @Column(name = "ACCOUNT_NUMBER")
+    @Column(name = "ACCOUNT_NUMBER", nullable = false)
     private Long accountNumber;
 
-    @Column(name = "TRANSACTION_TYPE")
+    @Column(name = "TRANSACTION_TYPE", nullable = false)
     private String transactionType;
 
-    @Column(name = "TRANSACTION_AMOUNT")
+    @Column(name = "TRANSACTION_AMOUNT", nullable = false)
     private String transactionAmount;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "DATE_TRANSACTION")
+    @Column(name = "DATE_TRANSACTION", nullable = false)
     private Date transactionDate;
 }

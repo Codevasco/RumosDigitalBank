@@ -1,4 +1,4 @@
-package org.bnpparibas.rdb.model;
+package org.bnpparibas.rdb.model.cards;
 
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;

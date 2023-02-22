@@ -1,4 +1,4 @@
-package org.bnpparibas.rdb.model.entity.cards;
+package org.bnpparibas.rdb.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,17 +20,17 @@ public class CardEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "CARD_ID")
+    @Column(name = "CARD_ID", nullable = false)
     private UUID cardId;
 
-    @Column(name = "CARD_PIN")
+    @Column(name = "CARD_PIN", nullable = false, updatable = false)
     private Integer cardPin;
 
     @OneToOne
-    @JoinColumn(name = "CARD_OWNER_FK")
+    @JoinColumn(name = "CARD_OWNER_FK", nullable = false)
     private ClientEntity cardOwner;
 
     @OneToOne
-    @JoinColumn(name = "CARD_ACCOUNT_FK")
+    @JoinColumn(name = "CARD_ACCOUNT_FK", nullable = false)
     private AccountEntity cardAccount;
 }

@@ -1,4 +1,4 @@
-package org.bnpparibas.rdb.model.entity.cards;
+package org.bnpparibas.rdb.model.cards;
 
 public enum CardType {
 
