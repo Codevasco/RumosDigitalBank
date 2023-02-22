@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface BankingService {
 
-    public List<Client> findAllClients();
+    public List<Client> findAllClients(); // TODO Test Use-Case  - POSTMAN
 
     public ResponseEntity<Object> findByNif(Long nif);
 
@@ -21,7 +21,7 @@ public interface BankingService {
 
     public ResponseEntity<Object> deleteClient(Long nif);
 
-    public List<Account> findAllAccounts();
+    public List<Account> findAllAccounts(); // TODO Test Use-Case - POSTMAN
 
     public ResponseEntity<Object> findByAccountNumber(Long accountNumber);
 
