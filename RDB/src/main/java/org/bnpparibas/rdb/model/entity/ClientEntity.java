@@ -1,20 +1,22 @@
-package org.bnpparibas.rdb.domain;
+package org.bnpparibas.rdb.model.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 import java.util.UUID;
 
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class ClientDomain {
+@Table(name = "CLIENT")
+public class ClientEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "CLIENT_ID")
     private UUID clientId;
 
     private Long nif;
@@ -33,7 +35,10 @@ public class ClientDomain {
 
     private String occupation;
 
+    @Temporal(TemporalType.DATE)
     private Date clientCreationDate;
 
+    @Temporal(TemporalType.DATE)
     private Date clientUpdateDate;
+
 }

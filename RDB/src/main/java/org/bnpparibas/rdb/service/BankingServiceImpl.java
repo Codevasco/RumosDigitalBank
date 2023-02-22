@@ -1,11 +1,11 @@
 package org.bnpparibas.rdb.service;
 
 import jakarta.transaction.Transactional;
-import org.bnpparibas.rdb.domain.AccountDomain;
-import org.bnpparibas.rdb.domain.ClientDomain;
 import org.bnpparibas.rdb.model.Account;
 import org.bnpparibas.rdb.model.Client;
-import org.bnpparibas.rdb.model.Transaction;
+import org.bnpparibas.rdb.model.entity.AccountEntity;
+import org.bnpparibas.rdb.model.entity.ClientEntity;
+import org.bnpparibas.rdb.model.entity.TransactionEntity;
 import org.bnpparibas.rdb.repository.*;
 import org.bnpparibas.rdb.service.builder.BankingBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,13 +39,13 @@ public class BankingServiceImpl implements BankingService {
      * Returns a list of all existing clients
      */
     @Override // TODO CHECK
-    public List<ClientDomain> findAllClients() {
+    public List<Client> findAllClients() {
 
-        List<ClientDomain> clients = new ArrayList<>();
-        Iterable<Client> clientList = clientRepository.findAll();
+        List<Client> clients = new ArrayList<>();
+        Iterable<ClientEntity> clientList = clientRepository.findAll();
 
         clientList.forEach(client -> {
-            clients.add(bankingBuilder.convertToClientDomain(client));
+            clients.add(bankingBuilder.convertToClientEntity(client));
         });
 
         return clients;
@@ -57,10 +57,10 @@ public class BankingServiceImpl implements BankingService {
     @Override // TODO CHECK
     public ResponseEntity<Object> findByNif(Long nif) {
 
-        Optional<Client> clientOptional = clientRepository.findByNif(nif);
+        Optional<ClientEntity> clientOptional = clientRepository.findByNif(nif);
 
         if (clientOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.FOUND).body(bankingBuilder.convertToClientDomain(clientOptional.get()));
+            return ResponseEntity.status(HttpStatus.FOUND).body(bankingBuilder.convertToClientEntity(clientOptional.get()));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found.");
         }
@@ -70,14 +70,14 @@ public class BankingServiceImpl implements BankingService {
      * Creates a new client
      */
     @Override // TODO CHECK
-    public ResponseEntity<Object> addClient(ClientDomain clientDomain, Long nif) {
+    public ResponseEntity<Object> addClient(Client client, Long nif) {
 
-        Optional<Client> clientOptional = clientRepository.findByNif(nif);
+        Optional<ClientEntity> clientOptional = clientRepository.findByNif(nif);
 
         if (clientOptional.isEmpty()) {
-            Client client = bankingBuilder.convertToClientEntity(clientDomain);
-            client.setClientCreationDate(new Date());
-            clientRepository.save(client);
+            ClientEntity clientEntity = bankingBuilder.convertToClientPojo(client);
+            clientEntity.setClientCreationDate(new Date());
+            clientRepository.save(clientEntity);
             return ResponseEntity.status(HttpStatus.CREATED).body("New client created successfully.");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Client already exists.");
@@ -88,7 +88,7 @@ public class BankingServiceImpl implements BankingService {
      * Updates client details
      */
     @Override // TODO METHOD
-    public ResponseEntity<Object> updateClient(Client client, Long nif) {
+    public ResponseEntity<Object> updateClient(ClientEntity clientEntity, Long nif) {
         return null;
     }
 
@@ -98,11 +98,11 @@ public class BankingServiceImpl implements BankingService {
     @Override
     public ResponseEntity<Object> deleteClient(Long nif) {
 
-        Optional<Client> clientOptional = clientRepository.findByNif(nif);
+        Optional<ClientEntity> clientOptional = clientRepository.findByNif(nif);
 
         if (clientOptional.isPresent()) {
-            Client existingClient = clientOptional.get();
-            clientRepository.delete(existingClient);
+            ClientEntity existingClientEntity = clientOptional.get();
+            clientRepository.delete(existingClientEntity);
             return ResponseEntity.status(HttpStatus.OK).body("Client deleted successfully.");
 
         } else {
@@ -114,13 +114,13 @@ public class BankingServiceImpl implements BankingService {
      * Returns a list of all existing accounts
      */
     @Override // TODO CHECK
-    public List<AccountDomain> findAllAccounts() {
+    public List<Account> findAllAccounts() {
 
-        List<AccountDomain> accounts = new ArrayList<>();
-        Iterable<Account> accountList = accountRepository.findAll();
+        List<Account> accounts = new ArrayList<>();
+        Iterable<AccountEntity> accountList = accountRepository.findAll();
 
         accountList.forEach(account -> {
-            accounts.add(bankingBuilder.convertToAccountDomain(account));
+            accounts.add(bankingBuilder.convertToAccountEntity(account));
         });
 
         return accounts;
@@ -132,10 +132,10 @@ public class BankingServiceImpl implements BankingService {
     @Override // TODO CHECK
     public ResponseEntity<Object> findByAccountNumber(Long accountNumber) {
 
-        Optional<Account> accountOptional = accountRepository.findByAccountNumber(accountNumber);
+        Optional<AccountEntity> accountOptional = accountRepository.findByAccountNumber(accountNumber);
 
         if (accountOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.FOUND).body(bankingBuilder.convertToAccountDomain(accountOptional.get()));
+            return ResponseEntity.status(HttpStatus.FOUND).body(bankingBuilder.convertToAccountEntity(accountOptional.get()));
 
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account " + accountNumber + " does not exist.");
@@ -146,12 +146,12 @@ public class BankingServiceImpl implements BankingService {
      * Creates a new account
      */
     @Override // TODO CHECK
-    public ResponseEntity<Object> addAccount(AccountDomain accountDomain, Long nif) {
+    public ResponseEntity<Object> addAccount(Account account, Long nif) {
 
-        Optional<Client> clientOptional = clientRepository.findByNif(nif);
+        Optional<ClientEntity> clientOptional = clientRepository.findByNif(nif);
 
         if (clientOptional.isPresent()) {
-            accountRepository.save(bankingBuilder.convertToAccountEntity(accountDomain));
+            accountRepository.save(bankingBuilder.convertToAccountPojo(account));
             return ResponseEntity.status(HttpStatus.CREATED).body("Account created successfully.");
 
         } else {
@@ -163,7 +163,7 @@ public class BankingServiceImpl implements BankingService {
      * Updates account details
      */
     @Override // TODO METHOD
-    public ResponseEntity<Object> updateAccount(Account account, Long nif) {
+    public ResponseEntity<Object> updateAccount(AccountEntity account, Long nif) {
         return null;
     }
 
@@ -179,7 +179,7 @@ public class BankingServiceImpl implements BankingService {
      * Shows the transaction history for a specified account
      */
     @Override // TODO METHOD
-    public List<Transaction> findTransanctionsByAccountNumber(Long accountNumber) {
+    public List<TransactionEntity> findTransanctionsByAccountNumber(Long accountNumber) {
         return null;
     }
 }

@@ -1,22 +1,19 @@
 package org.bnpparibas.rdb.model;
 
-import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.UUID;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-@Table(name = "CLIENT")
 public class Client {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "CLIENT_ID")
     private UUID clientId;
 
     private Long nif;
@@ -35,10 +32,7 @@ public class Client {
 
     private String occupation;
 
-    @Temporal(TemporalType.DATE)
     private Date clientCreationDate;
 
-    @Temporal(TemporalType.DATE)
     private Date clientUpdateDate;
-
 }

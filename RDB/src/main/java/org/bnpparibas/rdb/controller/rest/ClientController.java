@@ -1,7 +1,7 @@
 package org.bnpparibas.rdb.controller.rest;
 
-import org.bnpparibas.rdb.domain.ClientDomain;
 import org.bnpparibas.rdb.model.Client;
+import org.bnpparibas.rdb.model.entity.ClientEntity;
 import org.bnpparibas.rdb.service.BankingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,13 +17,13 @@ public class ClientController {
     private BankingServiceImpl bankingService;
 
     @GetMapping(path = "/clients")
-    public List<ClientDomain> getAllClients() {
+    public List<Client> getAllClients() {
         return bankingService.findAllClients();
     }
 
     @PostMapping(path = "/add/{nif}")
-    public ResponseEntity<Object> addClient(@RequestBody ClientDomain clientDomain, Long nif) {
-        return bankingService.addClient(clientDomain, nif);
+    public ResponseEntity<Object> addClient(@RequestBody Client client, Long nif) {
+        return bankingService.addClient(client, nif);
     }
 
     @GetMapping(path = "/{nif}")
@@ -32,8 +32,8 @@ public class ClientController {
     }
 
     @GetMapping(path = "/update/{nif}")
-    public ResponseEntity<Object> updateClient(@RequestBody Client client, Long nif) {
-        return bankingService.updateClient(client, nif);
+    public ResponseEntity<Object> updateClient(@RequestBody ClientEntity clientEntity, Long nif) {
+        return bankingService.updateClient(clientEntity, nif);
     }
 
     @DeleteMapping(path = "/delete/{nif}")

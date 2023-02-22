@@ -1,7 +1,7 @@
 package org.bnpparibas.rdb.controller.rest;
 
-import org.bnpparibas.rdb.domain.AccountDomain;
-import org.bnpparibas.rdb.model.Transaction;
+import org.bnpparibas.rdb.model.Account;
+import org.bnpparibas.rdb.model.entity.TransactionEntity;
 import org.bnpparibas.rdb.service.BankingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +22,12 @@ public class AccountController {
     }
 
     @PostMapping("/add/{nif}")
-    public ResponseEntity<Object> getAddAccount(@RequestBody AccountDomain accountDomain, @PathVariable Long nif) {
-        return bankingService.addAccount(accountDomain, nif);
+    public ResponseEntity<Object> getAddAccount(@RequestBody Account account, @PathVariable Long nif) {
+        return bankingService.addAccount(account, nif);
     }
 
     @GetMapping("/transaction/{accountNumber}")
-    public List<Transaction> getFindTransactionsByAccountNumber(@PathVariable Long accountNumber) {
+    public List<TransactionEntity> getFindTransactionsByAccountNumber(@PathVariable Long accountNumber) {
         return bankingService.findTransanctionsByAccountNumber(accountNumber);
     }
 }

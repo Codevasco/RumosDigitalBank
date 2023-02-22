@@ -1,4 +1,4 @@
-package org.bnpparibas.rdb.domain;
+package org.bnpparibas.rdb.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,19 +9,25 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.UUID;
 
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class TransactionDomain {
-
+@Table(name = "TRANSACTION")
+public class TransactionEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "TRANSACTION_ID")
     private UUID transactionId;
 
     private Long accountNumber;
 
+    @Temporal(TemporalType.DATE)
     private Date transactionDate;
 
     private String transactionType;
 
     private String transactionAmount;
+
 }

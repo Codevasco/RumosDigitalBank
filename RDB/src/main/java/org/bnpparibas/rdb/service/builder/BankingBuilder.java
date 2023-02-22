@@ -1,18 +1,18 @@
 package org.bnpparibas.rdb.service.builder;
 
-import org.bnpparibas.rdb.domain.AccountDomain;
-import org.bnpparibas.rdb.domain.ClientDomain;
 import org.bnpparibas.rdb.model.Account;
 import org.bnpparibas.rdb.model.Client;
+import org.bnpparibas.rdb.model.entity.AccountEntity;
+import org.bnpparibas.rdb.model.entity.ClientEntity;
 
 import org.springframework.stereotype.Component;
 
-@Component
+@Component // TODO FIX
 public class BankingBuilder {
 
-    public ClientDomain convertToClientDomain(Client client) {
+    public ClientEntity convertToClientPojo(Client client) {
 
-        return ClientDomain.builder()
+        return ClientEntity.builder()
                 .nif(client.getNif())
                 .firstName(client.getFirstName())
                 .lastName(client.getLastName())
@@ -24,37 +24,37 @@ public class BankingBuilder {
                 .build();
     }
 
-    public Client convertToClientEntity(ClientDomain clientDomain) {
+    public Client convertToClientEntity(ClientEntity clientEntity) {
 
         return Client.builder()
-                .nif(clientDomain.getNif())
-                .firstName(clientDomain.getFirstName())
-                .lastName(clientDomain.getLastName())
-                .password(clientDomain.getPassword())
-                .telephone(clientDomain.getTelephone())
-                .cellphone(clientDomain.getCellphone())
-                .email(clientDomain.getEmail())
-                .occupation(clientDomain.getOccupation())
+                .nif(clientEntity.getNif())
+                .firstName(clientEntity.getFirstName())
+                .lastName(clientEntity.getLastName())
+                .password(clientEntity.getPassword())
+                .telephone(clientEntity.getTelephone())
+                .cellphone(clientEntity.getCellphone())
+                .email(clientEntity.getEmail())
+                .occupation(clientEntity.getOccupation())
                 .build();
     }
 
-    public AccountDomain convertToAccountDomain(Account account) {
+    public AccountEntity convertToAccountPojo(Account account) {
 
-        return AccountDomain.builder()
+        return AccountEntity.builder()
                 .accountNumber(account.getAccountNumber())
-                .primaryHolder(convertToClientDomain(account.getPrimaryHolder()))
-                .secondaryHolder(convertToClientDomain(account.getSecondaryHolder()))
+                .primaryHolder(convertToClientPojo(account.getPrimaryHolder()))
+                .secondaryHolder(convertToClientPojo(account.getSecondaryHolder()))
                 .balance(account.getBalance())
                 .build();
     }
 
-    public Account convertToAccountEntity(AccountDomain accountDomain) {
+    public Account convertToAccountEntity(AccountEntity accountEntity) {
 
         return Account.builder()
-                .accountNumber(accountDomain.getAccountNumber())
-                .primaryHolder(convertToClientEntity(accountDomain.getPrimaryHolder()))
-                .secondaryHolder(convertToClientEntity(accountDomain.getSecondaryHolder()))
-                .balance(accountDomain.getBalance())
+                .accountNumber(accountEntity.getAccountNumber())
+                .primaryHolder(convertToClientEntity(accountEntity.getPrimaryHolder()))
+                .secondaryHolder(convertToClientEntity(accountEntity.getSecondaryHolder()))
+                .balance(accountEntity.getBalance())
                 .build();
     }
 }
