@@ -38,15 +38,15 @@ public class BankingServiceImpl implements BankingService {
     /**
      * Returns a list of all existing clients
      */
-    @Override // TODO CHECK
+    @Override // TODO FIX
     public List<Client> findAllClients() {
 
         List<Client> clients = new ArrayList<>();
         Iterable<ClientEntity> clientList = clientRepository.findAll();
 
-        clientList.forEach(client -> {
-            clients.add(bankingBuilder.convertToClientEntity(client));
-        });
+        /* clientList.forEach(client -> {
+            clients.add(bankingBuilder.convertToClientModel(client));
+        }); */
 
         return clients;
     }
@@ -54,20 +54,20 @@ public class BankingServiceImpl implements BankingService {
     /**
      * Finds client by fiscal number (NIF)
      */
-    @Override // TODO CHECK
+    @Override // TODO FIX
     public ResponseEntity<Object> findByNif(Long nif) {
 
         Optional<ClientEntity> clientOptional = clientRepository.findByNif(nif);
-
-        return clientOptional.<ResponseEntity<Object>>map(clientEntity ->
+        return null;
+        /* return clientOptional.<ResponseEntity<Object>>map(clientEntity ->
                 ResponseEntity.status(HttpStatus.FOUND).body(bankingBuilder.convertToClientEntity(clientEntity)))
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found."));
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found.")); */
     }
 
     /**
      * Creates a new client
      */
-    @Override // TODO CHECK
+    @Override // TODO FIX
     public ResponseEntity<Object> addClient(Client client, Long nif) {
 
         Optional<ClientEntity> clientOptional = clientRepository.findByNif(nif);
@@ -111,7 +111,7 @@ public class BankingServiceImpl implements BankingService {
     /**
      * Returns a list of all existing accounts
      */
-    @Override // TODO CHECK
+    @Override // TODO FIX
     public List<Account> findAllAccounts() {
 
         List<Account> accounts = new ArrayList<>();
