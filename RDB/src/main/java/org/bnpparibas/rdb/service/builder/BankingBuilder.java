@@ -3,7 +3,7 @@ package org.bnpparibas.rdb.service.builder;
 import org.bnpparibas.rdb.model.Account;
 import org.bnpparibas.rdb.model.Client;
 import org.bnpparibas.rdb.model.Transaction;
-import org.bnpparibas.rdb.model.cards.Card;
+import org.bnpparibas.rdb.model.Card;
 import org.bnpparibas.rdb.model.entity.AccountEntity;
 import org.bnpparibas.rdb.model.entity.CardEntity;
 import org.bnpparibas.rdb.model.entity.ClientEntity;

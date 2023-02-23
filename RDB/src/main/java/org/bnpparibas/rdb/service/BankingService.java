@@ -2,11 +2,8 @@ package org.bnpparibas.rdb.service;
 
 import org.bnpparibas.rdb.model.Account;
 import org.bnpparibas.rdb.model.Client;
-import org.bnpparibas.rdb.model.cards.Card;
-import org.bnpparibas.rdb.model.entity.AccountEntity;
-import org.bnpparibas.rdb.model.entity.CardEntity;
-import org.bnpparibas.rdb.model.entity.ClientEntity;
-import org.bnpparibas.rdb.model.entity.TransactionEntity;
+import org.bnpparibas.rdb.model.Transaction;
+import org.bnpparibas.rdb.model.Card;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -19,7 +16,7 @@ public interface BankingService {
 
     ResponseEntity<Object> addClient(Client client, Long fiscalNumber);
 
-    ResponseEntity<Object> updateClient(ClientEntity clientEntity, Long fiscalNumber);
+    ResponseEntity<Object> updateClient(Client client, Long fiscalNumber);
 
     ResponseEntity<Object> deleteClient(Long fiscalNumber);
 
@@ -29,8 +26,6 @@ public interface BankingService {
 
     ResponseEntity<Object> addAccount(Account account, Long fiscalNumber);
 
-    ResponseEntity<Object> updateAccount(AccountEntity accountEntity, Long fiscalNumber);
-
     ResponseEntity<Object> deleteAccount(Long accountNumber);
 
     List<Card> findAllCards();
@@ -39,9 +34,9 @@ public interface BankingService {
 
     ResponseEntity<Object> addCard(Card card, Long accountNumber);
 
-    ResponseEntity<Object> updateCard(CardEntity cardEntity, Long cardNumber);
+    ResponseEntity<Object> updateCardPin(Card card, Long cardNumber);
 
     ResponseEntity<Object> deleteCard(Long cardNumber);
 
-    List<TransactionEntity> findTransanctionsByAccountNumber(Long accountNumber);
+    List<Transaction> findTransanctionsByAccountNumber(Long accountNumber);
 }

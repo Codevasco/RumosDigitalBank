@@ -16,27 +16,27 @@ public class ClientController { // TODO POSTMAN
     @Autowired
     private BankingServiceImpl bankingService;
 
-    @GetMapping("/client-directory")
+    @GetMapping("/clientDirectory") // TODO \ POSTMAN USE-CASE
     public List<Client> getAllClients() {
         return bankingService.findAllClients();
     }
 
-    @GetMapping("/{fiscalNumber}")
+    @GetMapping("/findClient")
     public ResponseEntity<Object> getClient(@PathVariable Long fiscalNumber) {
         return bankingService.findByFiscalNumber(fiscalNumber);
     }
 
-    @PostMapping(path = "/add/{fiscalNumber}")
-    public ResponseEntity<Object> getAddClient(@RequestBody Client client, Long nif) {
+    @PostMapping(path = "/addClient")
+    public ResponseEntity<Object> postAddClient(@RequestBody Client client, Long nif) {
         return bankingService.addClient(client, nif);
     }
 
-    @GetMapping(path = "/update/{fiscalNumber}")
-    public ResponseEntity<Object> getUpdateClient(@RequestBody ClientEntity clientEntity, Long fiscalNumber) {
-        return bankingService.updateClient(clientEntity, fiscalNumber);
+    @GetMapping(path = "/updateClient")
+    public ResponseEntity<Object> getUpdateClient(@RequestBody Client client, Long fiscalNumber) {
+        return bankingService.updateClient(client, fiscalNumber);
     }
 
-    @DeleteMapping(path = "/delete/{fiscalNumber}")
+    @DeleteMapping(path = "/deleteClient")
     public ResponseEntity<Object> deleteClient(@PathVariable Long fiscalNumber) {
         return bankingService.deleteClient(fiscalNumber);
     }

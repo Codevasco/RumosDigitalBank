@@ -1,4 +1,4 @@
-package org.bnpparibas.rdb.model.cards;
+package org.bnpparibas.rdb.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

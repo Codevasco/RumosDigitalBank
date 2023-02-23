@@ -1,7 +1,7 @@
 package org.bnpparibas.rdb.controller.rest;
 
 import org.bnpparibas.rdb.model.Account;
-import org.bnpparibas.rdb.model.entity.TransactionEntity;
+import org.bnpparibas.rdb.model.Transaction;
 import org.bnpparibas.rdb.service.BankingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,28 +16,28 @@ public class AccountController { // TODO POSTMAN
     @Autowired
     private BankingServiceImpl bankingService;
 
-    @GetMapping("/account-directory")
-    public List<Account> getAllAccounts() {
+    @GetMapping("/accountDirectory")
+    public List<Account> getAllAccounts() { // TODO \ POSTMAN USE-CASE
         return bankingService.findAllAccounts();
     }
 
-    @GetMapping("/{accountNumber}")
+    @GetMapping("/findAccount")
     public ResponseEntity<Object> getFindByAccountNumber(@PathVariable Long accountNumber) {
         return bankingService.findByAccountNumber(accountNumber);
     }
 
-    @PostMapping("/add/{fiscalNumber}")
-    public ResponseEntity<Object> getAddAccount(@RequestBody Account account, @PathVariable Long fiscalNumber) {
+    @PostMapping("/addAccount")
+    public ResponseEntity<Object> postAddAccount(@RequestBody Account account, @PathVariable Long fiscalNumber) {
         return bankingService.addAccount(account, fiscalNumber);
     }
 
-    @DeleteMapping("/delete/{accountNumber}")
-    public ResponseEntity<Object> getDeleteAccount(@PathVariable Long accountNumber) {
+    @DeleteMapping("/deleteAccount")
+    public ResponseEntity<Object> deleteAccount(@PathVariable Long accountNumber) {
         return bankingService.deleteAccount(accountNumber);
     }
 
-    @GetMapping("/transaction/{accountNumber}")
-    public List<TransactionEntity> getFindTransactionsByAccountNumber(@PathVariable Long accountNumber) {
+    @GetMapping("/transactionAccount")
+    public List<Transaction> getFindTransactionsByAccountNumber(@PathVariable Long accountNumber) {
         return bankingService.findTransanctionsByAccountNumber(accountNumber);
     }
 }

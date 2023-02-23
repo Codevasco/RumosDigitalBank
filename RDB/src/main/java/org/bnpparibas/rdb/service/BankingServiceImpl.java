@@ -1,10 +1,10 @@
 package org.bnpparibas.rdb.service;
 
 import jakarta.transaction.Transactional;
-import org.apache.coyote.Response;
 import org.bnpparibas.rdb.model.Account;
 import org.bnpparibas.rdb.model.Client;
-import org.bnpparibas.rdb.model.cards.Card;
+import org.bnpparibas.rdb.model.Transaction;
+import org.bnpparibas.rdb.model.Card;
 import org.bnpparibas.rdb.model.entity.AccountEntity;
 import org.bnpparibas.rdb.model.entity.CardEntity;
 import org.bnpparibas.rdb.model.entity.ClientEntity;
@@ -34,16 +34,22 @@ public class BankingServiceImpl implements BankingService {
     private CardRepository cardRepository;
 
     @Autowired
+    private TransactionRepository transactionRepository;
+
+    @Autowired
     private BankingBuilder bankingBuilder;
+
 
     public BankingServiceImpl(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
 
+
+
     /**
      * Returns a list of all existing clients
      */
-    @Override // TODO \ POSTMAN USE-CASE
+    @Override
     public List<Client> findAllClients() {
 
         List<Client> clients = new ArrayList<>();
@@ -90,9 +96,29 @@ public class BankingServiceImpl implements BankingService {
     /**
      * Updates client details
      */
-    @Override // TODO METHOD
-    public ResponseEntity<Object> updateClient(ClientEntity clientEntity, Long nif) {
-        return null;
+    @Override
+    public ResponseEntity<Object> updateClient(Client client, Long fiscalNumber) {
+
+        Optional<ClientEntity> clientOptional = clientRepository.findByFiscalNumber(fiscalNumber);
+        ClientEntity clientEntity = bankingBuilder.convertToClientEntity(client);
+
+        if (clientOptional.isPresent()) {
+            ClientEntity clientBody = clientOptional.get();
+
+            clientBody.setFirstName(clientEntity.getFirstName());
+            clientBody.setLastName(clientEntity.getLastName());
+            clientBody.setPassword(clientEntity.getPassword());
+            clientBody.setTelephone(clientEntity.getTelephone());
+            clientBody.setCellphone(clientEntity.getCellphone());
+            clientBody.setEmail(clientEntity.getEmail());
+            clientBody.setOccupation(clientEntity.getOccupation());
+
+            clientRepository.save(clientEntity);
+
+            return ResponseEntity.status(HttpStatus.OK).body("Client updated successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found.");
+        }
     }
 
     /**
@@ -116,7 +142,7 @@ public class BankingServiceImpl implements BankingService {
     /**
      * Returns a list of all existing accounts
      */
-    @Override // TODO \ POSTMAN USE-CASE
+    @Override
     public List<Account> findAllAccounts() {
 
         List<Account> accounts = new ArrayList<>();
@@ -160,14 +186,6 @@ public class BankingServiceImpl implements BankingService {
     }
 
     /**
-     * Updates account details
-     */
-    @Override // TODO METHOD
-    public ResponseEntity<Object> updateAccount(AccountEntity accountEntity, Long nif) {
-        return null;
-    }
-
-    /**
      * Deletes an existing account
      */
     @Override
@@ -186,17 +204,9 @@ public class BankingServiceImpl implements BankingService {
     }
 
     /**
-     * Shows the transaction history for a specific account
-     */
-    @Override // TODO METHOD
-    public List<TransactionEntity> findTransanctionsByAccountNumber(Long accountNumber) {
-        return null;
-    }
-
-    /**
      * Returns a list of all existing cards
      */
-    @Override // TODO CONTROLLER
+    @Override
     public List<Card> findAllCards() {
         List<Card> cards = new ArrayList<>();
         Iterable<CardEntity> cardList = cardRepository.findAll();
@@ -224,7 +234,7 @@ public class BankingServiceImpl implements BankingService {
     /**
      * Creates a new card
      */
-    @Override // TODO CONTROLLER
+    @Override
     public ResponseEntity<Object> addCard(Card card, Long accountNumber) {
 
         Optional<AccountEntity> accountOptional = accountRepository.findByAccountNumber(accountNumber);
@@ -241,15 +251,29 @@ public class BankingServiceImpl implements BankingService {
     /**
      * Updates card details
      */
-    @Override // TODO METHOD
-    public ResponseEntity<Object> updateCard(CardEntity cardEntity, Long cardNumber) {
-        return null;
+    @Override
+    public ResponseEntity<Object> updateCardPin(Card card, Long cardNumber) {
+
+        Optional<CardEntity> cardOptional = cardRepository.findByCardNumber(cardNumber);
+        CardEntity cardEntity = bankingBuilder.convertToCardEntity(card);
+
+        if (cardOptional.isPresent()) {
+            CardEntity cardBody = cardOptional.get();
+
+            cardBody.setCardPin(card.getCardPin());
+
+            cardRepository.save(cardEntity);
+
+            return ResponseEntity.status(HttpStatus.OK).body("Card pin updated successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Card not found.");
+        }
     }
 
     /**
      * Deletes an existing card
      */
-    @Override // TODO CONTROLLER
+    @Override
     public ResponseEntity<Object> deleteCard(Long cardNumber) {
 
         Optional<CardEntity> cardOptional = cardRepository.findByCardNumber(cardNumber);
@@ -262,5 +286,25 @@ public class BankingServiceImpl implements BankingService {
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Card does not exist.");
         }
+    }
+
+    /**
+     * Shows the transaction history for a specific account
+     */
+    @Override
+    public List<Transaction> findTransanctionsByAccountNumber(Long accountNumber) {
+
+        List<Transaction> transactions = new ArrayList<>();
+        Optional<AccountEntity> accountOptional = accountRepository.findByAccountNumber(accountNumber);
+
+        if (accountOptional.isPresent()) {
+            Optional<List<TransactionEntity>> transactionsEntity = transactionRepository.findTransactionByAccountNumber(accountNumber);
+
+            transactionsEntity.ifPresent(transactionEntities -> transactionEntities.forEach(transaction -> {
+                transactions.add(bankingBuilder.convertToTransactionModel(transaction));
+            }));
+        }
+
+        return transactions;
     }
 }

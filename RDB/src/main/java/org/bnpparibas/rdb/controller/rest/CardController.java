@@ -1,6 +1,6 @@
 package org.bnpparibas.rdb.controller.rest;
 
-import org.bnpparibas.rdb.model.cards.Card;
+import org.bnpparibas.rdb.model.Card;
 import org.bnpparibas.rdb.service.BankingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,22 +15,27 @@ public class CardController { // TODO POSTMAN
     @Autowired
     private BankingServiceImpl bankingService;
 
-    @GetMapping("/card-directory")
-    public List<Card> getAllCards() {
+    @GetMapping("/cardDirectory") // TODO \ POSTMAN USE-CASE
+    public List<Card> getFindAllCards() {
         return bankingService.findAllCards();
     }
 
-    @GetMapping("/{cardNumber}")
+    @GetMapping("/findCard")
     public ResponseEntity<Object> getFindByCardNumber(@PathVariable Long cardNumber) {
         return bankingService.findByCardNumber(cardNumber);
     }
 
-    @PostMapping("/add/{cardNumber")
-    public ResponseEntity<Object> getAddCard(@RequestBody Card card, @PathVariable Long cardNumber) {
+    @GetMapping("/updateCardPin")
+    public ResponseEntity<Object> getUpdateCardPin(@RequestBody Card card, Long cardNumber) {
+        return bankingService.updateCardPin(card, cardNumber);
+    }
+
+    @PostMapping("/addCard")
+    public ResponseEntity<Object> getAddCard(@RequestBody Card card, Long cardNumber) {
         return bankingService.addCard(card, cardNumber);
     }
 
-    @DeleteMapping("/delete/{cardNumber}")
+    @DeleteMapping("/deleteCard")
     public ResponseEntity<Object> getDeleteCard(@PathVariable Long cardNumber) {
         return bankingService.deleteCard(cardNumber);
     }
