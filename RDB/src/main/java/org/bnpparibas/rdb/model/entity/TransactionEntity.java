@@ -12,6 +12,7 @@ import java.util.Date;
 @Builder
 @Table(name = "TRANSACTION")
 public class TransactionEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "TRANSACTION_ID", nullable = false)
