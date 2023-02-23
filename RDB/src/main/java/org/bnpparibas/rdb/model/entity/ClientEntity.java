@@ -3,9 +3,6 @@ package org.bnpparibas.rdb.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
-import java.util.UUID;
-
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,7 +14,7 @@ public class ClientEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "CLIENT_ID", nullable = false)
-    private UUID clientId;
+    private Integer clientId;
 
     @Column(name = "FISCAL_NUMBER", nullable = false, updatable = false)
     private Long fiscalNumber;
@@ -43,12 +40,12 @@ public class ClientEntity {
     @Column(name = "OCCUPATION")
     private String occupation;
 
-    @Temporal(TemporalType.DATE)
+    /* @Temporal(TemporalType.DATE)
     @Column(name = "DATE_CREATED_CLIENT", nullable = false)
     private Date clientCreationDate;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "DATE_UPDATED_CLIENT", nullable = false)
-    private Date clientUpdateDate;
+    private Date clientUpdateDate; */
 
 }

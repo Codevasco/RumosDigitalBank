@@ -74,7 +74,7 @@ public class BankingServiceImpl implements BankingService {
 
         if (clientOptional.isEmpty()) {
             ClientEntity clientEntity = bankingBuilder.convertToClientEntity(client);
-            clientEntity.setClientCreationDate(new Date());
+            // clientEntity.setClientCreationDate(new Date());
             clientRepository.save(clientEntity);
             return ResponseEntity.status(HttpStatus.CREATED).body("New client created successfully.");
 

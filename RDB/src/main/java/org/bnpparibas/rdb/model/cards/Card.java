@@ -1,6 +1,5 @@
 package org.bnpparibas.rdb.model.cards;
 
-import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.bnpparibas.rdb.model.entity.AccountEntity;
 import org.bnpparibas.rdb.model.entity.ClientEntity;
 
-import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,7 +14,7 @@ import java.util.UUID;
 @Builder
 public class Card {
 
-    private UUID cardID;
+    private Integer cardID;
 
     private Integer cardPin;
 

@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Entity
 @AllArgsConstructor
@@ -19,7 +18,7 @@ public class TransactionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "TRANSACTION_ID", nullable = false)
-    private UUID transactionId;
+    private Integer transactionId;
 
     @Column(name = "ACCOUNT_NUMBER", nullable = false)
     private Long accountNumber;

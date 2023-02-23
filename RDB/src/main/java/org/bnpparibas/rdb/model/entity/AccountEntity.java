@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Entity
 @AllArgsConstructor
@@ -17,7 +16,7 @@ public class AccountEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ACCOUNT_ID", nullable = false)
-    private UUID accountId;
+    private Integer accountId;
 
     @Column(name = "ACCOUNT_NUMBER", nullable = false, updatable = false)
     private Long accountNumber;

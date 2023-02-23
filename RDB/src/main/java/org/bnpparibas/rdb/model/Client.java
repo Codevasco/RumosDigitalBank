@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,7 +13,7 @@ import java.util.UUID;
 @Builder
 public class Client {
 
-    private UUID clientId;
+    private Integer clientId;
 
     private Long fiscalNumber;
 
