@@ -11,7 +11,7 @@ import org.bnpparibas.rdb.model.entity.ClientEntity;
 import org.bnpparibas.rdb.model.entity.TransactionEntity;
 import org.springframework.stereotype.Component;
 
-@Component // TODO FIX
+@Component
 public class BankingBuilder {
 
     public Client convertToClientModel(ClientEntity clientEntity) {
