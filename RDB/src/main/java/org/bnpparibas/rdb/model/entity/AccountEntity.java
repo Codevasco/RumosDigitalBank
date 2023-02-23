@@ -3,7 +3,6 @@ package org.bnpparibas.rdb.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
 
 @Entity
 @AllArgsConstructor
@@ -31,12 +30,4 @@ public class AccountEntity {
 
     @Column(name = "BALANCE", nullable = false)
     private Double balance;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "DATE_CREATED_ACCOUNT", nullable = false)
-    private Date accountCreationDate;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "DATE_UPDATED_ACCOUNT", nullable = false)
-    private Date accountUpdateDate;
 }

@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,8 +29,4 @@ public class Client {
     private String email;
 
     private String occupation;
-
-    private Date clientCreationDate;
-
-    private Date clientUpdateDate;
 }

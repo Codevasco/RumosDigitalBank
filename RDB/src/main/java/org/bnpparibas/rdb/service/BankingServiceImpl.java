@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,7 +73,6 @@ public class BankingServiceImpl implements BankingService {
 
         if (clientOptional.isEmpty()) {
             ClientEntity clientEntity = bankingBuilder.convertToClientEntity(client);
-            // clientEntity.setClientCreationDate(new Date());
             clientRepository.save(clientEntity);
             return ResponseEntity.status(HttpStatus.CREATED).body("New client created successfully.");
 

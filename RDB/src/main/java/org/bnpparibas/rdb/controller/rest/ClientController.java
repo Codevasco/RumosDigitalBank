@@ -40,5 +40,4 @@ public class ClientController { // TODO POSTMAN
     public ResponseEntity<Object> deleteClient(@PathVariable Long fiscalNumber) {
         return bankingService.deleteClient(fiscalNumber);
     }
-
 }

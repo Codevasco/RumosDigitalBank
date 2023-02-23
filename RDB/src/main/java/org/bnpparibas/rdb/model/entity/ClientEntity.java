@@ -40,12 +40,4 @@ public class ClientEntity {
     @Column(name = "OCCUPATION")
     private String occupation;
 
-    /* @Temporal(TemporalType.DATE)
-    @Column(name = "DATE_CREATED_CLIENT", nullable = false)
-    private Date clientCreationDate;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "DATE_UPDATED_CLIENT", nullable = false)
-    private Date clientUpdateDate; */
-
 }
