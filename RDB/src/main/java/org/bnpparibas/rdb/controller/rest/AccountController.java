@@ -1,7 +1,6 @@
 package org.bnpparibas.rdb.controller.rest;
 
 import org.bnpparibas.rdb.model.Account;
-import org.bnpparibas.rdb.model.Client;
 import org.bnpparibas.rdb.model.entity.TransactionEntity;
 import org.bnpparibas.rdb.service.BankingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ public class AccountController { // TODO POSTMAN
     @Autowired
     private BankingServiceImpl bankingService;
 
-    @GetMapping(path = "/account-directory")
+    @GetMapping("/account-directory")
     public List<Account> getAllAccounts() {
         return bankingService.findAllAccounts();
     }
@@ -32,7 +31,7 @@ public class AccountController { // TODO POSTMAN
         return bankingService.addAccount(account, fiscalNumber);
     }
 
-    @DeleteMapping(path = "/delete/{accountNumber}")
+    @DeleteMapping("/delete/{accountNumber}")
     public ResponseEntity<Object> getDeleteAccount(@PathVariable Long accountNumber) {
         return bankingService.deleteAccount(accountNumber);
     }

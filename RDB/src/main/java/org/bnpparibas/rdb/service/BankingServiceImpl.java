@@ -1,9 +1,12 @@
 package org.bnpparibas.rdb.service;
 
 import jakarta.transaction.Transactional;
+import org.apache.coyote.Response;
 import org.bnpparibas.rdb.model.Account;
 import org.bnpparibas.rdb.model.Client;
+import org.bnpparibas.rdb.model.cards.Card;
 import org.bnpparibas.rdb.model.entity.AccountEntity;
+import org.bnpparibas.rdb.model.entity.CardEntity;
 import org.bnpparibas.rdb.model.entity.ClientEntity;
 import org.bnpparibas.rdb.model.entity.TransactionEntity;
 import org.bnpparibas.rdb.repository.*;
@@ -28,6 +31,9 @@ public class BankingServiceImpl implements BankingService {
     private AccountRepository accountRepository;
 
     @Autowired
+    private CardRepository cardRepository;
+
+    @Autowired
     private BankingBuilder bankingBuilder;
 
     public BankingServiceImpl(ClientRepository clientRepository) {
@@ -37,7 +43,7 @@ public class BankingServiceImpl implements BankingService {
     /**
      * Returns a list of all existing clients
      */
-    @Override
+    @Override // TODO \ POSTMAN USE-CASE
     public List<Client> findAllClients() {
 
         List<Client> clients = new ArrayList<>();
@@ -110,7 +116,7 @@ public class BankingServiceImpl implements BankingService {
     /**
      * Returns a list of all existing accounts
      */
-    @Override
+    @Override // TODO \ POSTMAN USE-CASE
     public List<Account> findAllAccounts() {
 
         List<Account> accounts = new ArrayList<>();
@@ -157,7 +163,7 @@ public class BankingServiceImpl implements BankingService {
      * Updates account details
      */
     @Override // TODO METHOD
-    public ResponseEntity<Object> updateAccount(AccountEntity account, Long nif) {
+    public ResponseEntity<Object> updateAccount(AccountEntity accountEntity, Long nif) {
         return null;
     }
 
@@ -180,10 +186,81 @@ public class BankingServiceImpl implements BankingService {
     }
 
     /**
-     * Shows the transaction history for a specified account
+     * Shows the transaction history for a specific account
      */
     @Override // TODO METHOD
     public List<TransactionEntity> findTransanctionsByAccountNumber(Long accountNumber) {
         return null;
+    }
+
+    /**
+     * Returns a list of all existing cards
+     */
+    @Override // TODO CONTROLLER
+    public List<Card> findAllCards() {
+        List<Card> cards = new ArrayList<>();
+        Iterable<CardEntity> cardList = cardRepository.findAll();
+
+        cardList.forEach(card -> {
+            cards.add(bankingBuilder.convertToCardModel(card));
+        });
+
+        return cards;
+    }
+
+    /**
+     * Finds card by card number
+     */
+    @Override
+    public ResponseEntity<Object> findByCardNumber(Long cardNumber) {
+
+        Optional<CardEntity> cardOptional = cardRepository.findByCardNumber(cardNumber);
+
+        return cardOptional.<ResponseEntity<Object>>map(card ->
+                        ResponseEntity.status(HttpStatus.FOUND).body(bankingBuilder.convertToCardModel(card)))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Card does not exist."));
+    }
+
+    /**
+     * Creates a new card
+     */
+    @Override // TODO CONTROLLER
+    public ResponseEntity<Object> addCard(Card card, Long accountNumber) {
+
+        Optional<AccountEntity> accountOptional = accountRepository.findByAccountNumber(accountNumber);
+
+        if (accountOptional.isPresent()) {
+            cardRepository.save(bankingBuilder.convertToCardEntity(card));
+            return ResponseEntity.status(HttpStatus.CREATED).body("Card created successfully.");
+
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Account does not exist");
+        }
+    }
+
+    /**
+     * Updates card details
+     */
+    @Override // TODO METHOD
+    public ResponseEntity<Object> updateCard(CardEntity cardEntity, Long cardNumber) {
+        return null;
+    }
+
+    /**
+     * Deletes an existing card
+     */
+    @Override // TODO CONTROLLER
+    public ResponseEntity<Object> deleteCard(Long cardNumber) {
+
+        Optional<CardEntity> cardOptional = cardRepository.findByCardNumber(cardNumber);
+
+        if (cardOptional.isPresent()) {
+            CardEntity existingCardEntity = cardOptional.get();
+            cardRepository.delete(existingCardEntity);
+            return ResponseEntity.status(HttpStatus.OK).body("Card deleted successfully.");
+
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Card does not exist.");
+        }
     }
 }

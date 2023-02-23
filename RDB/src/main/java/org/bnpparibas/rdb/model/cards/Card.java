@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.bnpparibas.rdb.model.entity.AccountEntity;
 import org.bnpparibas.rdb.model.entity.ClientEntity;
 
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -15,6 +14,8 @@ import org.bnpparibas.rdb.model.entity.ClientEntity;
 public class Card {
 
     private Integer cardID;
+
+    private Long cardNumber;
 
     private Integer cardPin;
 

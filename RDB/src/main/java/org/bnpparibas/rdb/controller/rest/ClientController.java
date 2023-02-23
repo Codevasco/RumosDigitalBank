@@ -16,12 +16,12 @@ public class ClientController { // TODO POSTMAN
     @Autowired
     private BankingServiceImpl bankingService;
 
-    @GetMapping(path = "/client-directory")
+    @GetMapping("/client-directory")
     public List<Client> getAllClients() {
         return bankingService.findAllClients();
     }
 
-    @GetMapping(path = "/{fiscalNumber}")
+    @GetMapping("/{fiscalNumber}")
     public ResponseEntity<Object> getClient(@PathVariable Long fiscalNumber) {
         return bankingService.findByFiscalNumber(fiscalNumber);
     }

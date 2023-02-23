@@ -3,7 +3,6 @@ package org.bnpparibas.rdb.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
