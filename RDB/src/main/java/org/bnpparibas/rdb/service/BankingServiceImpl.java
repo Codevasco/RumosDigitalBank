@@ -110,7 +110,7 @@ public class BankingServiceImpl implements BankingService {
     /**
      * Returns a list of all existing accounts
      */
-    @Override // TODO CONTROLLER
+    @Override
     public List<Account> findAllAccounts() {
 
         List<Account> accounts = new ArrayList<>();
@@ -126,7 +126,7 @@ public class BankingServiceImpl implements BankingService {
     /**
      * Finds account by account number
      */
-    @Override // TODO CONTROLLER
+    @Override
     public ResponseEntity<Object> findByAccountNumber(Long accountNumber) {
 
         Optional<AccountEntity> accountOptional = accountRepository.findByAccountNumber(accountNumber);
@@ -164,9 +164,19 @@ public class BankingServiceImpl implements BankingService {
     /**
      * Deletes an existing account
      */
-    @Override // TODO METHOD
+    @Override
     public ResponseEntity<Object> deleteAccount(Long accountNumber) {
-        return null;
+        Optional<AccountEntity> accountOptional = accountRepository.findByAccountNumber(accountNumber);
+
+        if (accountOptional.isPresent()) {
+            AccountEntity existingAccountEntity = accountOptional.get();
+            accountRepository.delete(existingAccountEntity);
+            return ResponseEntity.status(HttpStatus.OK).body("Account deleted successfully.");
+
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Account does not exist.");
+        }
+
     }
 
     /**

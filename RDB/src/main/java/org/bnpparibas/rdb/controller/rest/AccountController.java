@@ -32,6 +32,11 @@ public class AccountController { // TODO POSTMAN
         return bankingService.addAccount(account, fiscalNumber);
     }
 
+    @DeleteMapping(path = "/delete/{accountNumber}")
+    public ResponseEntity<Object> getDeleteAccount(@PathVariable Long accountNumber) {
+        return bankingService.deleteAccount(accountNumber);
+    }
+
     @GetMapping("/transaction/{accountNumber}")
     public List<TransactionEntity> getFindTransactionsByAccountNumber(@PathVariable Long accountNumber) {
         return bankingService.findTransanctionsByAccountNumber(accountNumber);

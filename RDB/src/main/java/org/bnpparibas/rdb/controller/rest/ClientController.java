@@ -27,12 +27,12 @@ public class ClientController { // TODO POSTMAN
     }
 
     @PostMapping(path = "/add/{fiscalNumber}")
-    public ResponseEntity<Object> addClient(@RequestBody Client client, Long nif) {
+    public ResponseEntity<Object> getAddClient(@RequestBody Client client, Long nif) {
         return bankingService.addClient(client, nif);
     }
 
     @GetMapping(path = "/update/{fiscalNumber}")
-    public ResponseEntity<Object> updateClient(@RequestBody ClientEntity clientEntity, Long fiscalNumber) {
+    public ResponseEntity<Object> getUpdateClient(@RequestBody ClientEntity clientEntity, Long fiscalNumber) {
         return bankingService.updateClient(clientEntity, fiscalNumber);
     }
 
