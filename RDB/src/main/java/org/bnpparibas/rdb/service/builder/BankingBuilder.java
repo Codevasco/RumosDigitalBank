@@ -127,6 +127,4 @@ public class BankingBuilder {
                 .transactionAmount(withdrawal.getWithdrawalAmount().toString())
                 .build();
     }
-
-
 }
