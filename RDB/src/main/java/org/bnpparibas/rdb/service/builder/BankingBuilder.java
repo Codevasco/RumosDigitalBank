@@ -9,6 +9,7 @@ import org.bnpparibas.rdb.model.entity.CardEntity;
 import org.bnpparibas.rdb.model.entity.ClientEntity;
 
 import org.bnpparibas.rdb.model.entity.TransactionEntity;
+import org.bnpparibas.rdb.model.operations.Transfer;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -95,6 +96,15 @@ public class BankingBuilder {
                 .accountNumber(transaction.getAccountNumber())
                 .transactionType(transaction.getTransactionType())
                 .transactionAmount(transaction.getTransactionAmount())
+                .build();
+    }
+
+    public TransactionEntity newTransaction (Transfer transfer, Long accountNumber, String transactionType) {
+
+        return TransactionEntity.builder()
+                .accountNumber(accountNumber)
+                .transactionType(transactionType)
+                .transactionAmount(transfer.getTransferAmount().toString())
                 .build();
     }
 }
