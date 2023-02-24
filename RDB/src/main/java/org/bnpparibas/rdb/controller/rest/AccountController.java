@@ -27,7 +27,7 @@ public class AccountController { // TODO POSTMAN
     }
 
     @PostMapping("/addAccount")
-    public ResponseEntity<Object> postAddAccount(@RequestBody Account account, @PathVariable Long fiscalNumber) {
+    public ResponseEntity<Object> postAddAccount(@RequestBody Account account, Long fiscalNumber) {
         return bankingService.addAccount(account, fiscalNumber);
     }
 
