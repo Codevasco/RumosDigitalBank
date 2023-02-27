@@ -1,6 +1,6 @@
 package org.bnpparibas.rdb.controller.rest;
 
-import org.bnpparibas.rdb.model.Card;
+import org.bnpparibas.rdb.model.cards.Card;
 import org.bnpparibas.rdb.service.BankingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

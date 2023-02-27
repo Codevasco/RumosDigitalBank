@@ -3,7 +3,7 @@ package org.bnpparibas.rdb.service;
 import org.bnpparibas.rdb.model.Account;
 import org.bnpparibas.rdb.model.Client;
 import org.bnpparibas.rdb.model.Transaction;
-import org.bnpparibas.rdb.model.Card;
+import org.bnpparibas.rdb.model.cards.Card;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

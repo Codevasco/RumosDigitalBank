@@ -1,4 +1,4 @@
-package org.bnpparibas.rdb.model;
+package org.bnpparibas.rdb.model.cards;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import org.bnpparibas.rdb.model.entity.ClientEntity;
 @NoArgsConstructor
 @Data
 @Builder
-public class Card {
+public abstract class Card {
 
     private Integer cardID;
 
