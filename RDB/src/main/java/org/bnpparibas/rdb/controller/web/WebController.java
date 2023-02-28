@@ -1,6 +1,7 @@
 package org.bnpparibas.rdb.controller.web;
 
 import org.bnpparibas.rdb.service.BankingServiceImpl;
+import org.bnpparibas.rdb.service.WebServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -11,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class WebController {
 
     @Autowired
-    private BankingServiceImpl bankingService;
+    private WebServiceImpl webService;
 
     @GetMapping("/index")
     public ResponseEntity<Object> getLogin(@RequestBody Long fiscalNumber, String password) {
-        return bankingService.login(fiscalNumber, password);
+        return webService.login(fiscalNumber, password);
     }
 }
