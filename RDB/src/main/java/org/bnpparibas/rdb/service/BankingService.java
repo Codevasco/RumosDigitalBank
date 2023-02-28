@@ -39,4 +39,6 @@ public interface BankingService {
     ResponseEntity<Object> deleteCard(Long cardNumber);
 
     List<Transaction> findTransanctionsByAccountNumber(Long accountNumber);
+
+    ResponseEntity<Object> login(Long fiscalNumber, String password);
 }

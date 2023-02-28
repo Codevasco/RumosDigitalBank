@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface ClientRepository extends JpaRepository<ClientEntity, String> {
     Optional<ClientEntity> findByFiscalNumber(Long fiscalNumber);
+
+    Optional<ClientEntity> findByPassword(String password);
 }
