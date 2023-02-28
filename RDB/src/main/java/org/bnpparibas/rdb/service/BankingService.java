@@ -3,9 +3,10 @@ package org.bnpparibas.rdb.service;
 import org.bnpparibas.rdb.model.Account;
 import org.bnpparibas.rdb.model.Client;
 import org.bnpparibas.rdb.model.Transaction;
-import org.bnpparibas.rdb.model.cards.Card;
+import org.bnpparibas.rdb.model.Card;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Date;
 import java.util.List;
 
 public interface BankingService {
@@ -24,7 +25,7 @@ public interface BankingService {
 
     ResponseEntity<Object> findByAccountNumber(Long accountNumber);
 
-    ResponseEntity<Object> addAccount(Account account, Long fiscalNumber);
+    ResponseEntity<Object> addAccount(Account account, Long fiscalNumber, Date dateOfBirth);
 
     ResponseEntity<Object> deleteAccount(Long accountNumber);
 

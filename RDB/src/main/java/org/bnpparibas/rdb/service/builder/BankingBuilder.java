@@ -3,7 +3,7 @@ package org.bnpparibas.rdb.service.builder;
 import org.bnpparibas.rdb.model.Account;
 import org.bnpparibas.rdb.model.Client;
 import org.bnpparibas.rdb.model.Transaction;
-import org.bnpparibas.rdb.model.cards.Card;
+import org.bnpparibas.rdb.model.Card;
 import org.bnpparibas.rdb.model.entity.AccountEntity;
 import org.bnpparibas.rdb.model.entity.CardEntity;
 import org.bnpparibas.rdb.model.entity.ClientEntity;
@@ -23,6 +23,7 @@ public class BankingBuilder {
                 .fiscalNumber(clientEntity.getFiscalNumber())
                 .firstName(clientEntity.getFirstName())
                 .lastName(clientEntity.getLastName())
+                .dateOfBirth(clientEntity.getDateOfBirth())
                 .password(clientEntity.getPassword())
                 .telephone(clientEntity.getTelephone())
                 .cellphone(clientEntity.getCellphone())
@@ -37,6 +38,7 @@ public class BankingBuilder {
                 .fiscalNumber(client.getFiscalNumber())
                 .firstName(client.getFirstName())
                 .lastName(client.getLastName())
+                .dateOfBirth(client.getDateOfBirth())
                 .password(client.getPassword())
                 .telephone(client.getTelephone())
                 .cellphone(client.getCellphone())
@@ -71,6 +73,8 @@ public class BankingBuilder {
                 .cardPin(cardEntity.getCardPin())
                 .cardOwner(cardEntity.getCardOwner())
                 .cardAccount(cardEntity.getCardAccount())
+                .withdrawalsPerDay(cardEntity.getWithdrawalsPerDay())
+                .withdrawnAmountPerDay(cardEntity.getWithdrawnAmountPerDay())
                 .build();
     }
 
@@ -80,6 +84,8 @@ public class BankingBuilder {
                 .cardPin(card.getCardPin())
                 .cardOwner(card.getCardOwner())
                 .cardAccount(card.getCardAccount())
+                .withdrawalsPerDay(card.getWithdrawalsPerDay())
+                .withdrawnAmountPerDay(card.getWithdrawnAmountPerDay())
                 .build();
     }
 

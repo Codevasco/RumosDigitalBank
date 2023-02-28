@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -27,8 +28,8 @@ public class AccountController { // TODO POSTMAN
     }
 
     @PostMapping("/addAccount")
-    public ResponseEntity<Object> postAddAccount(@RequestBody Account account, Long fiscalNumber) {
-        return bankingService.addAccount(account, fiscalNumber);
+    public ResponseEntity<Object> postAddAccount(@RequestBody Account account, Long fiscalNumber, Date dateOfBirth) {
+        return bankingService.addAccount(account, fiscalNumber, dateOfBirth);
     }
 
     @DeleteMapping("/deleteAccount/{accountNumber}")

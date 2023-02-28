@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -18,6 +20,8 @@ public class Client {
     private String firstName;
 
     private String lastName;
+
+    private Date dateOfBirth;
 
     private String password;
 

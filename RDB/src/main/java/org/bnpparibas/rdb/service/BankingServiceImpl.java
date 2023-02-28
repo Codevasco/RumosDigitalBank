@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional;
 import org.bnpparibas.rdb.model.Account;
 import org.bnpparibas.rdb.model.Client;
 import org.bnpparibas.rdb.model.Transaction;
-import org.bnpparibas.rdb.model.cards.Card;
+import org.bnpparibas.rdb.model.Card;
 import org.bnpparibas.rdb.model.entity.AccountEntity;
 import org.bnpparibas.rdb.model.entity.CardEntity;
 import org.bnpparibas.rdb.model.entity.ClientEntity;
@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,6 +79,7 @@ public class BankingServiceImpl implements BankingService {
         Optional<ClientEntity> clientOptional = clientRepository.findByFiscalNumber(fiscalNumber);
 
         if (clientOptional.isEmpty()) {
+
             ClientEntity clientEntity = bankingBuilder.convertToClientEntity(client);
             clientRepository.save(clientEntity);
             return ResponseEntity.status(HttpStatus.CREATED).body("New client created successfully.");
@@ -101,6 +103,7 @@ public class BankingServiceImpl implements BankingService {
 
             clientBody.setFirstName(clientEntity.getFirstName());
             clientBody.setLastName(clientEntity.getLastName());
+            clientBody.setDateOfBirth(clientEntity.getDateOfBirth());
             clientBody.setPassword(clientEntity.getPassword());
             clientBody.setTelephone(clientEntity.getTelephone());
             clientBody.setCellphone(clientEntity.getCellphone());
@@ -166,11 +169,13 @@ public class BankingServiceImpl implements BankingService {
      * Creates a new account
      */
     @Override
-    public ResponseEntity<Object> addAccount(Account account, Long fiscalNumber) {
+    public ResponseEntity<Object> addAccount(Account account, Long fiscalNumber, Date dateOfBirth) {
 
-        Optional<ClientEntity> clientOptional = clientRepository.findByFiscalNumber(fiscalNumber);
+        Optional<ClientEntity> clientFiscalNumber = clientRepository.findByFiscalNumber(fiscalNumber);
+        Optional<ClientEntity> clientAge = clientRepository.findByDateOfBirth(dateOfBirth);
 
-        if (clientOptional.isPresent()) {
+        if (clientFiscalNumber.isPresent() && clientAge.isPresent()) {
+            account.setBalance(50.0);
             accountRepository.save(bankingBuilder.convertToAccountEntity(account));
             return ResponseEntity.status(HttpStatus.CREATED).body("Account created successfully.");
 

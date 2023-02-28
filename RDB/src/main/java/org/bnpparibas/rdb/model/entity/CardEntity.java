@@ -29,4 +29,10 @@ public class CardEntity {
     @OneToOne
     @JoinColumn(name = "CARD_ACCOUNT_FK", nullable = false)
     private AccountEntity cardAccount;
+
+    @Column(name = "WITHDRAWALS_PER_DAY")
+    private Integer withdrawalsPerDay;
+
+    @Column(name ="WITHDRAWN_AMOUNT_PER_DAY")
+    private Double withdrawnAmountPerDay;
 }

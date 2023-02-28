@@ -3,6 +3,8 @@ package org.bnpparibas.rdb.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,6 +26,10 @@ public class ClientEntity {
 
     @Column(name = "LAST_NAME")
     private String lastName;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DATE_OF_BIRTH")
+    private Date dateOfBirth;
 
     @Column(name = "PASSWORD", nullable = false)
     private String password;
