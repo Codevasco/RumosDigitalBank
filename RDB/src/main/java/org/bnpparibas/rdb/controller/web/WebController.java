@@ -18,4 +18,9 @@ public class WebController {
     public ResponseEntity<Object> getLogin(@RequestBody Long fiscalNumber, String password) {
         return webService.login(fiscalNumber, password);
     }
+
+    @GetMapping("/ATM")
+    public ResponseEntity<Object> getAtmLogin(@RequestBody Long cardNumber, Integer cardPin) {
+        return webService.atmLogin(cardNumber, cardPin);
+    }
 }
