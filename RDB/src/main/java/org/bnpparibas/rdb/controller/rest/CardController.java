@@ -20,7 +20,7 @@ public class CardController { // TODO POSTMAN
         return bankingService.findAllCards();
     }
 
-    @GetMapping("/findCard")
+    @GetMapping("/findCard/{cardNumber}")
     public ResponseEntity<Object> getFindByCardNumber(@PathVariable Long cardNumber) {
         return bankingService.findByCardNumber(cardNumber);
     }
@@ -35,7 +35,7 @@ public class CardController { // TODO POSTMAN
         return bankingService.addCard(card, cardNumber);
     }
 
-    @DeleteMapping("/deleteCard")
+    @DeleteMapping("/deleteCard/{cardNumber}")
     public ResponseEntity<Object> getDeleteCard(@PathVariable Long cardNumber) {
         return bankingService.deleteCard(cardNumber);
     }

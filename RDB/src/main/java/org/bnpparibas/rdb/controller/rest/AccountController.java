@@ -21,7 +21,7 @@ public class AccountController { // TODO POSTMAN
         return bankingService.findAllAccounts();
     }
 
-    @GetMapping("/findAccount")
+    @GetMapping("/findAccount/{accountNumber}")
     public ResponseEntity<Object> getFindByAccountNumber(@PathVariable Long accountNumber) {
         return bankingService.findByAccountNumber(accountNumber);
     }
@@ -31,12 +31,12 @@ public class AccountController { // TODO POSTMAN
         return bankingService.addAccount(account, fiscalNumber);
     }
 
-    @DeleteMapping("/deleteAccount")
+    @DeleteMapping("/deleteAccount/{accountNumber}")
     public ResponseEntity<Object> deleteAccount(@PathVariable Long accountNumber) {
         return bankingService.deleteAccount(accountNumber);
     }
 
-    @GetMapping("/transactionAccount")
+    @GetMapping("/transactionAccount/{accountNumber}")
     public List<Transaction> getFindTransactionsByAccountNumber(@PathVariable Long accountNumber) {
         return bankingService.findTransanctionsByAccountNumber(accountNumber);
     }

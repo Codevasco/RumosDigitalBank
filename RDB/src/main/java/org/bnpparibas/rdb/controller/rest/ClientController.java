@@ -21,7 +21,7 @@ public class ClientController { // TODO POSTMAN
         return bankingService.findAllClients();
     }
 
-    @GetMapping("/findClient")
+    @GetMapping("/findClient/{fiscalNumber}")
     public ResponseEntity<Object> getClient(@PathVariable Long fiscalNumber) {
         return bankingService.findByFiscalNumber(fiscalNumber);
     }
@@ -36,7 +36,7 @@ public class ClientController { // TODO POSTMAN
         return bankingService.updateClient(client, fiscalNumber);
     }
 
-    @DeleteMapping(path = "/deleteClient")
+    @DeleteMapping(path = "/deleteClient/{fiscalNumber}")
     public ResponseEntity<Object> deleteClient(@PathVariable Long fiscalNumber) {
         return bankingService.deleteClient(fiscalNumber);
     }
