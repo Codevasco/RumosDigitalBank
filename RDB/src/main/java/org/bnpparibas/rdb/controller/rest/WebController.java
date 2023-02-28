@@ -1,20 +1,17 @@
-package org.bnpparibas.rdb.controller.web;
+package org.bnpparibas.rdb.controller.rest;
 
-import org.bnpparibas.rdb.service.BankingServiceImpl;
 import org.bnpparibas.rdb.service.WebServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 public class WebController {
 
     @Autowired
     private WebServiceImpl webService;
 
-    @GetMapping("/index")
+    @GetMapping("/login")
     public ResponseEntity<Object> getLogin(@RequestBody Long fiscalNumber, String password) {
         return webService.login(fiscalNumber, password);
     }
