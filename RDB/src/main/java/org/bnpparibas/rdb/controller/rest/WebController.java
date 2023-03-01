@@ -12,12 +12,12 @@ public class WebController {
     private WebServiceImpl webService;
 
     @GetMapping("/login")
-    public ResponseEntity<Object> getLogin(@RequestBody Long fiscalNumber, String password) {
+    public ResponseEntity<Object> getLogin(@RequestParam Long fiscalNumber, @RequestParam String password) {
         return webService.login(fiscalNumber, password);
     }
 
     @GetMapping("/ATM")
-    public ResponseEntity<Object> getAtmLogin(@RequestBody Long cardNumber, Integer cardPin) {
+    public ResponseEntity<Object> getAtmLogin(@RequestParam Long cardNumber, @RequestParam Integer cardPin) {
         return webService.atmLogin(cardNumber, cardPin);
     }
 }

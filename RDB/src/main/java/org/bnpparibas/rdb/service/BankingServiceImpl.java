@@ -79,7 +79,6 @@ public class BankingServiceImpl implements BankingService {
         Optional<ClientEntity> clientOptional = clientRepository.findByFiscalNumber(fiscalNumber);
 
         if (clientOptional.isEmpty()) {
-
             ClientEntity clientEntity = bankingBuilder.convertToClientEntity(client);
             clientRepository.save(clientEntity);
             return ResponseEntity.status(HttpStatus.CREATED).body("New client created successfully.");
@@ -171,10 +170,9 @@ public class BankingServiceImpl implements BankingService {
     @Override
     public ResponseEntity<Object> addAccount(Account account, Long fiscalNumber, Date dateOfBirth) {
 
-        Optional<ClientEntity> clientFiscalNumber = clientRepository.findByFiscalNumber(fiscalNumber);
-        Optional<ClientEntity> clientAge = clientRepository.findByDateOfBirth(dateOfBirth);
+        Optional<ClientEntity> clientOptional = clientRepository.findByFiscalNumber(fiscalNumber);
 
-        if (clientFiscalNumber.isPresent() && clientAge.isPresent()) {
+        if (clientOptional.isPresent()) {
             account.setBalance(50.0);
             accountRepository.save(bankingBuilder.convertToAccountEntity(account));
             return ResponseEntity.status(HttpStatus.CREATED).body("Account created successfully.");

@@ -25,11 +25,9 @@ public class WebServiceImpl implements WebService {
     @Override
     public ResponseEntity<Object> login(Long fiscalNumber, String password) {
 
-        Optional<ClientEntity> clientFiscalNumber = clientRepository.findByFiscalNumber(fiscalNumber);
-        Optional<ClientEntity> clientPassword = clientRepository.findByPassword(password);
+        Optional<ClientEntity> client = clientRepository.findByFiscalNumberAndPassword(fiscalNumber, password);
 
-        if (clientFiscalNumber.isPresent() && clientPassword.isPresent()
-        ) {
+        if (client.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body("Logged in successfully.");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found or password incorrect.");
