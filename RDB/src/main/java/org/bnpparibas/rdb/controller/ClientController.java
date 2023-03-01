@@ -1,40 +1,43 @@
 package org.bnpparibas.rdb.controller;
 
+import org.bnpparibas.rdb.model.Client;
+import org.bnpparibas.rdb.service.implementation.ClientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("clients")
-public class ClientController { // TODO POSTMAN
+public class ClientController {
 
     @Autowired
-    private BankingServiceImpl bankingService;
+    private ClientServiceImpl clientService;
 
-    @GetMapping("/clientDirectory") // TODO \ POSTMAN USE-CASE
+    @GetMapping("/clientDirectory")
     public List<Client> getAllClients() {
-        return bankingService.findAllClients();
+        return clientService.findAllClients();
     }
 
-    @GetMapping("/findClient/{fiscalNumber}")
-    public ResponseEntity<Object> getClient(@PathVariable Long fiscalNumber) {
-        return bankingService.findByFiscalNumber(fiscalNumber);
+    @GetMapping("/findClient")
+    public ResponseEntity<Object> getClient(@RequestParam Long fiscalNumber) {
+        return clientService.findByFiscalNumber(fiscalNumber);
     }
 
-    @PostMapping(path = "/addClient")
+    @PostMapping("/addClient")
     public ResponseEntity<Object> postAddClient(@RequestBody Client client, Long nif) {
-        return bankingService.addClient(client, nif);
+        return clientService.addClient(client, nif);
     }
 
-    @GetMapping(path = "/updateClient")
+    @GetMapping("/updateClient")
     public ResponseEntity<Object> getUpdateClient(@RequestBody Client client, Long fiscalNumber) {
-        return bankingService.updateClient(client, fiscalNumber);
+        return clientService.updateClient(client, fiscalNumber);
     }
 
-    @DeleteMapping(path = "/deleteClient/{fiscalNumber}")
-    public ResponseEntity<Object> deleteClient(@PathVariable Long fiscalNumber) {
-        return bankingService.deleteClient(fiscalNumber);
+    @DeleteMapping("/deleteClient")
+    public ResponseEntity<Object> deleteClient(@RequestParam Long fiscalNumber) {
+        return clientService.deleteClient(fiscalNumber);
     }
 }

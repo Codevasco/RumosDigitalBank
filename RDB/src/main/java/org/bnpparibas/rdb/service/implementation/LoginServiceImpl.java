@@ -38,7 +38,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public ResponseEntity<Object> atmLogin(Long cardNumber, Integer cardPin) {
 
-        Optional<Card> card = cardRepository.findByCardNumberAndPin(cardNumber, cardPin);
+        Optional<Card> card = cardRepository.findByCardNumberAndCardPin(cardNumber, cardPin);
 
         if (card.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body("(ATM) Logged in successfully.");

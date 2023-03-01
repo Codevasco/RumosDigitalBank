@@ -12,7 +12,7 @@ public interface AccountService {
 
     ResponseEntity<Object> findByAccountNumber(Long accountNumber);
 
-    ResponseEntity<Object> addAccount(Account account, Long fiscalNumber, Date dateOfBirth);
+    ResponseEntity<Object> addAccount(Account account, Long fiscalNumber);
 
     ResponseEntity<Object> deleteAccount(Long accountNumber);
 }

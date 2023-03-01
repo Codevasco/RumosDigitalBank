@@ -1,31 +1,39 @@
 package org.bnpparibas.rdb.controller;
 
+import org.bnpparibas.rdb.model.Transaction;
 import org.bnpparibas.rdb.model.operations.Deposit;
 import org.bnpparibas.rdb.model.operations.Transfer;
 import org.bnpparibas.rdb.model.operations.Withdrawal;
+import org.bnpparibas.rdb.service.implementation.TransactionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("transactions")
 public class TransactionController {
 
     @Autowired
-    private OperationsServiceImpl operationsService;
+    private TransactionServiceImpl transactionService;
 
     @PostMapping("/deposit")
-    public ResponseEntity<Object> getDeposit(@RequestBody Deposit deposit, Long accountNumber) {
-        return operationsService.deposit(deposit, accountNumber);
+    public ResponseEntity<Object> postDeposit(@RequestBody Deposit deposit, Long accountNumber) {
+        return transactionService.deposit(deposit, accountNumber);
     }
 
     @PostMapping("/withdrawal")
-    public ResponseEntity<Object> getDeposit(@RequestBody Withdrawal withdrawal, Long accountNumber) {
-        return operationsService.withdraw(withdrawal, accountNumber);
+    public ResponseEntity<Object> postWithdrawal(@RequestBody Withdrawal withdrawal, Long accountNumber) {
+        return transactionService.withdraw(withdrawal, accountNumber);
     }
 
     @PostMapping("/transfer")
-    public ResponseEntity<Object> getDeposit(@RequestBody Transfer transfer, Long accountNumber) {
-        return operationsService.transfer(transfer, accountNumber);
+    public ResponseEntity<Object> postTransfer(@RequestBody Transfer transfer, Long accountNumber) {
+        return transactionService.transfer(transfer, accountNumber);
+    }
+
+    @GetMapping("/transactions")
+    public List<Transaction> getFindTransactionsByAccountNumber(@RequestParam Long accountNumber) {
+        return transactionService.findTransanctionsByAccountNumber(accountNumber);
     }
 }

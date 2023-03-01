@@ -1,5 +1,7 @@
 package org.bnpparibas.rdb.controller;
 
+import org.bnpparibas.rdb.model.Card;
+import org.bnpparibas.rdb.service.implementation.CardServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -7,34 +9,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("cards")
-public class CardController { // TODO POSTMAN
+public class CardController {
 
     @Autowired
-    private BankingServiceImpl bankingService;
+    private CardServiceImpl cardService;
 
-    @GetMapping("/cardDirectory") // TODO \ POSTMAN USE-CASE
+    @GetMapping("/cards")
     public List<Card> getFindAllCards() {
-        return bankingService.findAllCards();
+        return cardService.findAllCards();
     }
 
-    @GetMapping("/findCard/{cardNumber}")
-    public ResponseEntity<Object> getFindByCardNumber(@PathVariable Long cardNumber) {
-        return bankingService.findByCardNumber(cardNumber);
+    @GetMapping("/findCard")
+    public ResponseEntity<Object> getFindByCardNumber(@RequestParam Long cardNumber) {
+        return cardService.findByCardNumber(cardNumber);
     }
 
     @GetMapping("/updateCardPin")
     public ResponseEntity<Object> getUpdateCardPin(@RequestBody Card card, Long cardNumber) {
-        return bankingService.updateCardPin(card, cardNumber);
+        return cardService.updateCardPin(card, cardNumber);
     }
 
     @PostMapping("/addCard")
     public ResponseEntity<Object> getAddCard(@RequestBody Card card, Long cardNumber) {
-        return bankingService.addCard(card, cardNumber);
+        return cardService.addCard(card, cardNumber);
     }
 
-    @DeleteMapping("/deleteCard/{cardNumber}")
-    public ResponseEntity<Object> getDeleteCard(@PathVariable Long cardNumber) {
-        return bankingService.deleteCard(cardNumber);
+    @DeleteMapping("/deleteCard")
+    public ResponseEntity<Object> getDeleteCard(@RequestParam Long cardNumber) {
+        return cardService.deleteCard(cardNumber);
     }
 }

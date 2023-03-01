@@ -61,7 +61,7 @@ public class AccountServiceImpl implements AccountService {
      * Creates a new account
      */
     @Override
-    public ResponseEntity<Object> addAccount(Account account, Long fiscalNumber, Date dateOfBirth) {
+    public ResponseEntity<Object> addAccount(Account account, Long fiscalNumber) {
 
         Optional<Client> clientOptional = clientRepository.findByFiscalNumber(fiscalNumber);
 
