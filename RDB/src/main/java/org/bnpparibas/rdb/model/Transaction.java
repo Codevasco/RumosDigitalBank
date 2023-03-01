@@ -1,25 +1,33 @@
 package org.bnpparibas.rdb.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.Date;
 
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
+@Table(name = "TRANSACTION")
 public class Transaction {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "TRANSACTION_ID", nullable = false)
     private Integer transactionId;
 
+    @Column(name = "ACCOUNT_NUMBER", nullable = false)
     private Long accountNumber;
 
-    private Date transactionDate;
-
+    @Column(name = "TRANSACTION_TYPE", nullable = false)
     private String transactionType;
 
+    @Column(name = "TRANSACTION_AMOUNT", nullable = false)
     private String transactionAmount;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DATE_TRANSACTION", nullable = false)
+    private Date transactionDate;
 }

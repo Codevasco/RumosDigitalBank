@@ -1,16 +1,17 @@
-package org.bnpparibas.rdb.service;
+package org.bnpparibas.rdb.service.implementation;
 
 import jakarta.transaction.Transactional;
-import org.bnpparibas.rdb.model.entity.AccountEntity;
-import org.bnpparibas.rdb.model.entity.ClientEntity;
-import org.bnpparibas.rdb.model.entity.TransactionEntity;
+import org.bnpparibas.rdb.model.Account;
+import org.bnpparibas.rdb.model.Client;
+import org.bnpparibas.rdb.model.Transaction;
+import org.bnpparibas.rdb.model.builder.BankingBuilder;
 import org.bnpparibas.rdb.model.operations.Deposit;
 import org.bnpparibas.rdb.model.operations.Transfer;
 import org.bnpparibas.rdb.model.operations.Withdrawal;
 import org.bnpparibas.rdb.repository.AccountRepository;
 import org.bnpparibas.rdb.repository.ClientRepository;
 import org.bnpparibas.rdb.repository.TransactionRepository;
-import org.bnpparibas.rdb.service.builder.BankingBuilder;
+import org.bnpparibas.rdb.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class OperationsServiceImpl implements OperationsService {
+public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
     private ClientRepository clientRepository;
@@ -40,37 +41,36 @@ public class OperationsServiceImpl implements OperationsService {
     @Override
     public ResponseEntity<Object> deposit(Deposit deposit, Long fiscalNumber) {
 
-        List<AccountEntity> accountEntity = new ArrayList<>();
-        AccountEntity accountDeposit = null;
+        List<Account> account = new ArrayList<>();
+        Account accountDeposit = null;
 
-        Optional<ClientEntity> clientOptional = clientRepository.findByFiscalNumber(fiscalNumber);
+        Optional<Client> clientOptional = clientRepository.findByFiscalNumber(fiscalNumber);
 
         if (clientOptional.isPresent()) {
 
-            Optional<AccountEntity> accountDepositEntity = accountRepository.findByAccountNumber(deposit.getAccountNumber());
+            Optional<Account> accountNumber = accountRepository.findByAccountNumber(deposit.getAccountNumber());
 
-            if (accountDepositEntity.isPresent()) {
-                accountDeposit = accountDepositEntity.get();
+            if (accountNumber.isPresent()) {
+                accountDeposit = accountNumber.get();
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not found");
             }
 
             if (accountDeposit.getBalance() < deposit.getDepositAmount()) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not enough funds to complete transaction.");
+
             } else {
                 synchronized (this) {
-
                     accountDeposit.setBalance(accountDeposit.getBalance() + deposit.getDepositAmount());
+                    account.add(accountDeposit);
+                    accountRepository.saveAll(account);
 
-                    accountEntity.add(accountDeposit);
-
-                    accountRepository.saveAll(accountEntity);
-
-                    TransactionEntity depositTransaction = bankingBuilder.newTransaction(deposit, accountDeposit.getAccountNumber(), "DEPOSIT");
+                    Transaction depositTransaction = bankingBuilder.newTransaction(deposit, accountDeposit.getAccountNumber(), "DEPOSIT");
                     transactionRepository.save(depositTransaction);
                 }
                 return ResponseEntity.status(HttpStatus.OK).body(deposit.getDepositAmount() + " deposited successfully.");
             }
+
         } else {
             return ResponseEntity.status(HttpStatus.OK).body("Client not found.");
         }
@@ -79,33 +79,31 @@ public class OperationsServiceImpl implements OperationsService {
     @Override
     public ResponseEntity<Object> withdraw(Withdrawal withdrawal, Long fiscalNumber) {
 
-        List<AccountEntity> accountEntity = new ArrayList<>();
-        AccountEntity accountWithdrawal = null;
+        List<Account> account = new ArrayList<>();
+        Account accountWithdrawal = null;
 
-        Optional<ClientEntity> clientOptional = clientRepository.findByFiscalNumber(fiscalNumber);
+        Optional<Client> clientOptional = clientRepository.findByFiscalNumber(fiscalNumber);
 
         if (clientOptional.isPresent()) {
 
-            Optional<AccountEntity> accountWithdrawalEntity = accountRepository.findByAccountNumber(withdrawal.getAccountNumber());
+            Optional<Account> accountNumber = accountRepository.findByAccountNumber(withdrawal.getAccountNumber());
 
-            if (accountWithdrawalEntity.isPresent()) {
-                accountWithdrawal = accountWithdrawalEntity.get();
+            if (accountNumber.isPresent()) {
+                accountWithdrawal = accountNumber.get();
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not found");
             }
 
             if (accountWithdrawal.getBalance() < withdrawal.getWithdrawalAmount()) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not enough funds to complete transaction.");
+
             } else {
                 synchronized (this) {
-
                     accountWithdrawal.setBalance(accountWithdrawal.getBalance() - withdrawal.getWithdrawalAmount());
+                    account.add(accountWithdrawal);
+                    accountRepository.saveAll(account);
 
-                    accountEntity.add(accountWithdrawal);
-
-                    accountRepository.saveAll(accountEntity);
-
-                    TransactionEntity withdrawalTransaction = bankingBuilder.newTransaction(withdrawal, accountWithdrawal.getAccountNumber(), "WITHDRAWAL");
+                    Transaction withdrawalTransaction = bankingBuilder.newTransaction(withdrawal, accountWithdrawal.getAccountNumber(), "WITHDRAWAL");
                     transactionRepository.save(withdrawalTransaction);
                 }
                 return ResponseEntity.status(HttpStatus.OK).body(withdrawal.getWithdrawalAmount() + " withdrawn successfully.");
@@ -118,28 +116,28 @@ public class OperationsServiceImpl implements OperationsService {
     @Override
     public ResponseEntity<Object> transfer(Transfer transfer, Long fiscalNumber) {
 
-        List<AccountEntity> accountEntity = new ArrayList<>();
-        AccountEntity fromAccount = null;
-        AccountEntity toAccount = null;
+        List<Account> account = new ArrayList<>();
+        Account fromAccount = null;
+        Account toAccount = null;
 
-        Optional<ClientEntity> clientOptional = clientRepository.findByFiscalNumber(fiscalNumber);
+        Optional<Client> clientOptional = clientRepository.findByFiscalNumber(fiscalNumber);
 
         if (clientOptional.isPresent()) {
 
             // Get fromAccount information
-            Optional<AccountEntity> fromAccountEntity = accountRepository.findByAccountNumber(transfer.getFromAccountNumber());
+            Optional<Account> fromAccountOptional = accountRepository.findByAccountNumber(transfer.getFromAccountNumber());
 
-            if (fromAccountEntity.isPresent()) {
-                fromAccount = fromAccountEntity.get();
+            if (fromAccountOptional.isPresent()) {
+                fromAccount = fromAccountOptional.get();
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("(From) Account not found");
             }
 
             // Get toAccount information
-            Optional<AccountEntity> toAccountEntity = accountRepository.findByAccountNumber(transfer.getToAccountNumber());
+            Optional<Account> toAccountOptional = accountRepository.findByAccountNumber(transfer.getToAccountNumber());
 
-            if (toAccountEntity.isPresent()) {
-                toAccount = toAccountEntity.get();
+            if (toAccountOptional.isPresent()) {
+                toAccount = toAccountOptional.get();
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("(To) Account not found");
             }
@@ -150,17 +148,17 @@ public class OperationsServiceImpl implements OperationsService {
                 synchronized (this) {
 
                     fromAccount.setBalance(fromAccount.getBalance() - transfer.getTransferAmount());
-                    accountEntity.add(fromAccount);
+                    account.add(fromAccount);
 
                     toAccount.setBalance(toAccount.getBalance() + transfer.getTransferAmount());
-                    accountEntity.add(toAccount);
+                    account.add(toAccount);
 
-                    accountRepository.saveAll(accountEntity);
+                    accountRepository.saveAll(account);
 
-                    TransactionEntity fromTransaction = bankingBuilder.newTransaction(transfer, fromAccount.getAccountNumber(), "TRANSFER - SENDER");
+                    Transaction fromTransaction = bankingBuilder.newTransaction(transfer, fromAccount.getAccountNumber(), "TRANSFER - SENDER");
                     transactionRepository.save(fromTransaction);
 
-                    TransactionEntity toTransaction = bankingBuilder.newTransaction(transfer, toAccount.getAccountNumber(), "TRANSFER - RECEIVER");
+                    Transaction toTransaction = bankingBuilder.newTransaction(transfer, toAccount.getAccountNumber(), "TRANSFER - RECEIVER");
                     transactionRepository.save(toTransaction);
                 }
                 return ResponseEntity.status(HttpStatus.OK).body(transfer.getTransferAmount() + " transferred successfully.");
@@ -168,5 +166,19 @@ public class OperationsServiceImpl implements OperationsService {
         } else {
             return ResponseEntity.status(HttpStatus.OK).body("Client not found.");
         }
+    }
+
+    @Override
+    public List<Transaction> findTransanctionsByAccountNumber(Long accountNumber) {
+
+        List<Transaction> transactions = new ArrayList<>();
+        Optional<Account> accountOptional = accountRepository.findByAccountNumber(accountNumber);
+
+        if (accountOptional.isPresent()) {
+            Optional<List<Transaction>> transactionList = transactionRepository.findTransactionByAccountNumber(accountNumber);
+            transactionList.ifPresent(list -> list.forEach(transaction -> transactions.add(bankingBuilder.transactionBuilder(transaction))));
+        }
+
+        return transactions;
     }
 }

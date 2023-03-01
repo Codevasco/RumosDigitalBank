@@ -1,6 +1,6 @@
 package org.bnpparibas.rdb.repository;
 
-import org.bnpparibas.rdb.model.entity.TransactionEntity;
+import org.bnpparibas.rdb.model.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TransactionRepository extends JpaRepository<TransactionEntity, String> {
+public interface TransactionRepository extends JpaRepository<Transaction, String> {
 
-    Optional<List<TransactionEntity>> findTransactionByAccountNumber(Long accountNumber);
+    Optional<List<Transaction>> findTransactionByAccountNumber(Long accountNumber);
 }

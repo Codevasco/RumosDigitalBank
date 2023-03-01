@@ -1,9 +1,8 @@
-package org.bnpparibas.rdb.controller.rest;
+package org.bnpparibas.rdb.controller;
 
 import org.bnpparibas.rdb.model.operations.Deposit;
 import org.bnpparibas.rdb.model.operations.Transfer;
 import org.bnpparibas.rdb.model.operations.Withdrawal;
-import org.bnpparibas.rdb.service.OperationsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

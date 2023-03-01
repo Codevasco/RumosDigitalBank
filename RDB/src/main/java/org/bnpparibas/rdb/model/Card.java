@@ -1,29 +1,38 @@
 package org.bnpparibas.rdb.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.bnpparibas.rdb.model.entity.AccountEntity;
-import org.bnpparibas.rdb.model.entity.ClientEntity;
+import jakarta.persistence.*;
+import lombok.*;
 
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
+@Table(name = "CARD")
 public class Card {
 
-    private Integer cardID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "CARD_ID", nullable = false)
+    private Integer cardId;
 
+    @Column(name = "CARD_NUMBER", nullable = false, updatable = false)
     private Long cardNumber;
 
+    @Column(name = "CARD_PIN", nullable = false, updatable = false)
     private Integer cardPin;
 
-    private ClientEntity cardOwner;
+    @OneToOne
+    @JoinColumn(name = "CARD_OWNER_FK", nullable = false)
+    private Client cardOwner;
 
-    private AccountEntity cardAccount;
+    @OneToOne
+    @JoinColumn(name = "CARD_ACCOUNT_FK", nullable = false)
+    private Account cardAccount;
 
+    @Column(name = "WITHDRAWALS_PER_DAY")
     private Integer withdrawalsPerDay;
 
+    @Column(name ="WITHDRAWN_AMOUNT_PER_DAY")
     private Double withdrawnAmountPerDay;
 }
