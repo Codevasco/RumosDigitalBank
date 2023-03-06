@@ -14,7 +14,7 @@ import java.util.Date;
 public class Transaction {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "TRANSACTION_ID", nullable = false, unique = true)
     private Integer transactionId;
 

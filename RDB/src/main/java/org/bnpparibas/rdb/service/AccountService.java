@@ -14,5 +14,7 @@ public interface AccountService {
 
     ResponseEntity<Object> addAccount(Account account, Long fiscalNumber);
 
+    ResponseEntity<Object> updateAccount(Account account, Long accountNumber);
+
     ResponseEntity<Object> deleteAccount(Long accountNumber);
 }

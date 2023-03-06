@@ -22,23 +22,38 @@ public class ClientController {
     /**
      * Shows client information page
      */
-    @GetMapping("/information")
-    public String showClientForm(Model model, HttpSession session) {
+    @GetMapping("/client")
+    public String showClient(@RequestParam Long fiscalNumber, Model model, HttpSession session) {
 
         Client client = (Client) session.getAttribute("client");
 
         if (client != null) {
             model.addAttribute("client", client);
-            return "information";
+            clientService.findByFiscalNumber(fiscalNumber);
+            return "client";
         } else {
             return "redirect:/login";
         }
     }
 
-    // public String showClientUpdateForm;
+    /**
+     * Shows client update page
+     */
+    @GetMapping("/client/updateClient")
+    public String showClientUpdateForm(Model model, HttpSession session) {
+
+        Client client = (Client) session.getAttribute("client");
+
+        if (client != null) {
+            model.addAttribute("client", client);
+            return "client/updateClient";
+        } else {
+            return "redirect:/login";
+        }
+    }
 
     /** API call for updating client information, redirects to information */
-    @PostMapping("/updateClient")
+    @PostMapping("/client/updateClient")
     public String postUpdateClientForm(@ModelAttribute("client") Client client, @RequestParam Long fiscalNumber) {
 
         clientService.updateClient(client, fiscalNumber);
@@ -46,21 +61,21 @@ public class ClientController {
     }
 
     /** Shows client deletion page */
-    @GetMapping("/deleteClient")
+    @GetMapping("/client/deleteClient")
     public String showDeleteClientForm(Model model, HttpSession session) {
 
         Client client = (Client) session.getAttribute("client");
 
         if (client != null) {
             model.addAttribute("client", client);
-            return "deleteClient";
+            return "client/deleteClient";
         } else {
             return "redirect:/login";
         }
     }
 
     /** API call to delete client, redirects to login */
-    @DeleteMapping("/deleteClient")
+    @DeleteMapping("/client/deleteClient")
     public String postDeleteClientForm(@RequestParam Long fiscalNumber) {
 
         clientService.deleteClient(fiscalNumber);

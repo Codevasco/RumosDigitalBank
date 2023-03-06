@@ -19,7 +19,7 @@ public class RegisterController {
 
     /** Shows register page */
     @GetMapping("/register")
-    public String showRegisterForm(Model model) {
+    public String showRegister(Model model) {
 
         model.addAttribute("client", new Client());
         return "register";
@@ -27,7 +27,7 @@ public class RegisterController {
 
     /** API call for register, redirects to login */
     @PostMapping("/register")
-    public String postRegisterForm(@ModelAttribute("client") Client client, @RequestParam Long fiscalNumber) {
+    public String postRegister(@ModelAttribute("client") Client client, @RequestParam Long fiscalNumber) {
 
         clientService.addClient(client, fiscalNumber);
         return "redirect:/login";

@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,6 +71,23 @@ public class AccountServiceImpl implements AccountService {
             return ResponseEntity.status(HttpStatus.CREATED).body("Account created successfully.");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Client does not exist");
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> updateAccount(Account account, Long accountNumber) {
+
+        Optional<Account> accountOptional = accountRepository.findByAccountNumber(accountNumber);
+
+        if (accountOptional.isPresent()) {
+            Account accountBody = accountOptional.get();
+
+            accountBody.setSecondaryHolder(account.getSecondaryHolder());
+            accountRepository.save(account);
+
+            return ResponseEntity.status(HttpStatus.OK).body("Client updated successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found.");
         }
     }
 

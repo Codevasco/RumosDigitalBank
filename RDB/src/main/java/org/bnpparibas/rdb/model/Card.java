@@ -12,7 +12,7 @@ import lombok.*;
 public class Card {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "CARD_ID", nullable = false, unique = true)
     private Integer cardId;
 

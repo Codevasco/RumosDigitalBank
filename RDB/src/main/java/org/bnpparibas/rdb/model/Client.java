@@ -15,7 +15,7 @@ import java.util.Date;
 public class Client {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "CLIENT_ID", nullable = false, unique = true)
     private Integer clientId;
 

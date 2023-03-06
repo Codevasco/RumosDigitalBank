@@ -22,12 +22,9 @@ public class AccountController {
     @Autowired
     private AccountServiceImpl accountService;
 
-
-    /**
-     * Shows page listing all accounts for specific client
-     */
+    /** Shows page listing all accounts for specific client */
     @GetMapping("/accounts")
-    public String showAccountsForm(@ModelAttribute("account") Account account, Model model, HttpSession session) {
+    public String showAccounts(@ModelAttribute("account") Account account, Model model, HttpSession session) {
 
         Client client = (Client) session.getAttribute("client");
 
@@ -41,11 +38,9 @@ public class AccountController {
         }
     }
 
-    // public String postAccountsForm;
-
     /** Shows page for single account page for specific client */
     @GetMapping("/accounts/selectedAccount")
-    public String showSingleAccountForm(@ModelAttribute("account") Account account, @RequestParam Long accountNumber, Model model, HttpSession session) {
+    public String showSingleAccount(@ModelAttribute("account") Account account, @RequestParam Long accountNumber, Model model, HttpSession session) {
 
         Client client = (Client) session.getAttribute("client");
 
@@ -59,50 +54,68 @@ public class AccountController {
         }
     }
 
-    // public String showUpdateAccountForm;
-
-    // public String postUpdateAccountForm;
-
-    /** Shows page for creating a new account */
-    @GetMapping("/addAccount")
-    public String showAddAccountForm(@ModelAttribute("account") Account account, Model model, HttpSession session) {
+    /** Shows page for secondary holder update */
+    @GetMapping("/accounts/selectedAccount/update")
+    public String showUpdateAccount(@ModelAttribute("account") Account account, Model model, HttpSession session) {
 
         Client client = (Client) session.getAttribute("client");
 
         if (client != null) {
             model.addAttribute("client", client);
             model.addAttribute("account", account);
-            accountService.findAllAccounts();
-            return "/addAccount";
+            return "accounts/selectedAccount/update";
         } else {
             return "redirect:/login";
         }
     }
 
-    /** API call for creating a new account, redirects to single account page */
-    @PostMapping("/addAccount")
+    /** API call for updating account secondary holder, redirects to specific account page */
+    @PostMapping("/accounts/selectedAccount/update")
+    public String postUpdateAccount(@ModelAttribute("account") Account account, @RequestParam Long fiscalNumber) {
+        accountService.updateAccount(account, fiscalNumber);
+        return "redirect:/accounts/selectedAccount";
+    }
+
+    /** Shows page for creating a new account */
+    @GetMapping("/accounts/addAccount")
+    public String showAddAccount(@ModelAttribute("account") Account account, Model model, HttpSession session) {
+
+        Client client = (Client) session.getAttribute("client");
+
+        if (client != null) {
+            model.addAttribute("client", client);
+            model.addAttribute("account", new Account());
+            return "accounts/addAccount";
+        } else {
+            return "redirect:/login";
+        }
+    }
+
+    /** API call for creating a new account, redirects to specific account page */
+    @PostMapping("/accounts/addAccount")
     public String postAddAccount(@ModelAttribute("account") Account account, @RequestParam Long fiscalNumber) {
         accountService.addAccount(account, fiscalNumber);
         return "redirect:/accounts/selectedAccount";
     }
 
-    @GetMapping("/deleteAccount")
-    public String showDeleteAccountForm(@ModelAttribute("account") Account account, Model model, HttpSession session) {
+    /** Shows page for deleting an existing account */
+    @GetMapping("accounts/selectedAccount/delete")
+    public String showDeleteAccount(@ModelAttribute("account") Account account, Model model, HttpSession session) {
 
         Client client = (Client) session.getAttribute("client");
 
         if (client != null) {
             model.addAttribute("client", client);
             model.addAttribute("account", account);
-            return "/deleteAccount";
+            return "accounts/selectedAccount/delete";
         } else {
             return "redirect:/login";
         }
     }
 
-    /** API call to delete account, redirects to all accounts page */
-    @DeleteMapping("/deleteAccount")
-    public String postDeleteAccountForm(@RequestParam Long accountNumber) {
+    /** API call to delete an existing account, redirects to all accounts page */
+    @DeleteMapping("accounts/selectedAccount/delete")
+    public String postDeleteAccount(@RequestParam Long accountNumber) {
 
         accountService.deleteAccount(accountNumber);
         return "redirect:/accounts";
