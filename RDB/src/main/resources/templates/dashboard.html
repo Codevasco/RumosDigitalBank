@@ -77,11 +77,11 @@
         <h3>Welcome, <span th:text="${client.firstName}"></span> <span th:text="${client.lastName}"></span>!</h3>
         <h4>Client Dashboard:</h4>
 
-        <button type="submit" th:href="@{/}">Information</button>
-        <button type="submit" th:href="@{/}">Transactions</button>
-        <button type="sumit" th:href="@{/}">Accounts</button>
-        <button type="submit" th:href="@{/}">Operations</button>
-        <a class="linkable" th:href="@{/}">Logout</a>
+        <button type="submit" th:href="@{/information}">Information</button>
+        <button type="submit" th:href="@{/transactions}">Transactions</button>
+        <button type="submit" th:href="@{/accounts}">Accounts</button>
+        <button type="submit" th:href="@{/atmLogin}">Operations</button>
+        <a class="linkable" th:href="@{/logout}">Logout</a>
     </form>
 
 </div>

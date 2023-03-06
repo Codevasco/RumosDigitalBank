@@ -17,7 +17,7 @@ public class LoginController {
 
     /** Shows login page */
     @GetMapping("/login")
-    public String showLogin(Model model) {
+    public String showLoginForm(Model model) {
 
         model.addAttribute("client", new Client());
         return "login";
@@ -25,7 +25,7 @@ public class LoginController {
 
     /** API call for login, redirects to dashboard */
     @PostMapping("/login")
-    public String postLogin(@RequestParam Long fiscalNumber, @RequestParam String password, Model model, HttpSession session) {
+    public String postLoginForm(@RequestParam Long fiscalNumber, @RequestParam String password, Model model, HttpSession session) {
 
         Client client = webService.login(fiscalNumber, password);
 

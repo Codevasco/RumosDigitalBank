@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class RegisterController {
@@ -18,7 +19,7 @@ public class RegisterController {
 
     /** Shows register page */
     @GetMapping("/register")
-    public String showRegisterPage(Model model) {
+    public String showRegisterForm(Model model) {
 
         model.addAttribute("client", new Client());
         return "register";
@@ -26,7 +27,7 @@ public class RegisterController {
 
     /** API call for register, redirects to login */
     @PostMapping("/register")
-    public String sendRegisterForm(@ModelAttribute("client") Client client, Long fiscalNumber) {
+    public String postRegisterForm(@ModelAttribute("client") Client client, @RequestParam Long fiscalNumber) {
 
         clientService.addClient(client, fiscalNumber);
         return "redirect:/login";

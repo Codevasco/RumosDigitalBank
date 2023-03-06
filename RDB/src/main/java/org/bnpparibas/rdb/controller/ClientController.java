@@ -1,38 +1,69 @@
 package org.bnpparibas.rdb.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.bnpparibas.rdb.model.Client;
 import org.bnpparibas.rdb.service.implementation.ClientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
-@RestController
-@RequestMapping("clients")
+@Controller
 public class ClientController {
 
     @Autowired
     private ClientServiceImpl clientService;
 
-    @GetMapping("/clientDirectory")
-    public List<Client> getAllClients() {
-        return clientService.findAllClients();
+
+    /**
+     * Shows client information page
+     */
+    @GetMapping("/information")
+    public String showClientForm(Model model, HttpSession session) {
+
+        Client client = (Client) session.getAttribute("client");
+
+        if (client != null) {
+            model.addAttribute("client", client);
+            return "information";
+        } else {
+            return "redirect:/login";
+        }
     }
 
-    @GetMapping("/findClient")
-    public ResponseEntity<Object> getClient(@RequestParam Long fiscalNumber) {
-        return clientService.findByFiscalNumber(fiscalNumber);
+    // public String showClientUpdateForm;
+
+    /** API call for updating client information, redirects to information */
+    @PostMapping("/updateClient")
+    public String postUpdateClientForm(@ModelAttribute("client") Client client, @RequestParam Long fiscalNumber) {
+
+        clientService.updateClient(client, fiscalNumber);
+        return "redirect:/information";
     }
 
-    @GetMapping("/updateClient")
-    public ResponseEntity<Object> getUpdateClient(@RequestBody Client client, Long fiscalNumber) {
-        return clientService.updateClient(client, fiscalNumber);
+    /** Shows client deletion page */
+    @GetMapping("/deleteClient")
+    public String showDeleteClientForm(Model model, HttpSession session) {
+
+        Client client = (Client) session.getAttribute("client");
+
+        if (client != null) {
+            model.addAttribute("client", client);
+            return "deleteClient";
+        } else {
+            return "redirect:/login";
+        }
     }
 
+    /** API call to delete client, redirects to login */
     @DeleteMapping("/deleteClient")
-    public ResponseEntity<Object> deleteClient(@RequestParam Long fiscalNumber) {
-        return clientService.deleteClient(fiscalNumber);
+    public String postDeleteClientForm(@RequestParam Long fiscalNumber) {
+
+        clientService.deleteClient(fiscalNumber);
+        return "redirect:/login";
     }
 }
