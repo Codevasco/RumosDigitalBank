@@ -24,15 +24,10 @@ public class LoginServiceImpl implements LoginService {
     private CardRepository cardRepository;
 
     @Override
-    public ResponseEntity<Object> login(Long fiscalNumber, String password) {
+    public Client login(Long fiscalNumber, String password) {
 
         Optional<Client> client = clientRepository.findByFiscalNumberAndPassword(fiscalNumber, password);
-
-        if (client.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body("Logged in successfully.");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found or password incorrect.");
-        }
+        return client.orElse(null);
     }
 
     @Override

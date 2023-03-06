@@ -15,10 +15,10 @@ public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "TRANSACTION_ID", nullable = false)
+    @Column(name = "TRANSACTION_ID", nullable = false, unique = true)
     private Integer transactionId;
 
-    @Column(name = "ACCOUNT_NUMBER", nullable = false)
+    @Column(name = "ACCOUNT_NUMBER", nullable = false, unique = true)
     private Long accountNumber;
 
     @Column(name = "TRANSACTION_TYPE", nullable = false)

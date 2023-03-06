@@ -1,10 +1,11 @@
 package org.bnpparibas.rdb.service;
 
+import org.bnpparibas.rdb.model.Client;
 import org.springframework.http.ResponseEntity;
 
 public interface LoginService {
 
-    ResponseEntity<Object> login(Long fiscalNumber, String password);
+    Client login(Long fiscalNumber, String password);
 
     ResponseEntity<Object> atmLogin(Long cardNumber, Integer cardPin);
 }

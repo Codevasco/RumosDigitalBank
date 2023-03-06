@@ -2,6 +2,7 @@ package org.bnpparibas.rdb.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -15,10 +16,10 @@ public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "CLIENT_ID", nullable = false)
+    @Column(name = "CLIENT_ID", nullable = false, unique = true)
     private Integer clientId;
 
-    @Column(name = "FISCAL_NUMBER", nullable = false, updatable = false)
+    @Column(name = "FISCAL_NUMBER", nullable = false, updatable = false, unique = true)
     private Long fiscalNumber;
 
     @Column(name = "FIRST_NAME")
@@ -29,6 +30,7 @@ public class Client {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "DATE_OF_BIRTH")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
 
     @Column(name = "PASSWORD", nullable = false)
@@ -40,7 +42,7 @@ public class Client {
     @Column(name = "CELLPHONE")
     private String cellphone;
 
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", unique = true)
     private String email;
 
     @Column(name = "OCCUPATION")

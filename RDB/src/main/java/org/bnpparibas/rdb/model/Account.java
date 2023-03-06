@@ -13,10 +13,10 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ACCOUNT_ID", nullable = false)
+    @Column(name = "ACCOUNT_ID", nullable = false, unique = true)
     private Integer accountId;
 
-    @Column(name = "ACCOUNT_NUMBER", nullable = false, updatable = false)
+    @Column(name = "ACCOUNT_NUMBER", nullable = false, updatable = false, unique = true)
     private Long accountNumber;
 
     @ManyToOne

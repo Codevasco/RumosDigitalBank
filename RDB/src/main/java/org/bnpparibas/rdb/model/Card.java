@@ -13,10 +13,10 @@ public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "CARD_ID", nullable = false)
+    @Column(name = "CARD_ID", nullable = false, unique = true)
     private Integer cardId;
 
-    @Column(name = "CARD_NUMBER", nullable = false, updatable = false)
+    @Column(name = "CARD_NUMBER", nullable = false, updatable = false, unique = true)
     private Long cardNumber;
 
     @Column(name = "CARD_PIN", nullable = false, updatable = false)

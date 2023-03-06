@@ -1,52 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Rumos Digital Bank - Login</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Vasco Gonçalves">
+    <meta name="author" content="Vasco Goncalves">
     <meta name="description" content="Banking Application">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" >
-    <link rel="stylesheet" type="text/css" href="/index.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap">
+    <link rel="stylesheet" type="text/css" href="/template.css">
+
+    <style>
+        .shape:first-child {
+            top: -10px;
+        }
+
+        .shape:last-child {
+            bottom: -10px;
+        }
+
+        form h4 {
+            font-weight: 500;
+            line-height: 42px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            margin-top: 30px;
+        }
+
+        form {
+            height: 350px;
+        }
+    </style>
 </head>
 
 <body>
-<div class="login-background">
+<div class="background">
     <div class="shape"></div>
     <div class="shape"></div>
 </div>
 
-<div class="login-form">
-    <form action="/login" method="get">
+<div class="form">
+    <form th:action="@{/login}" th:object="${client}" th:method="get">
+        <h3>Welcome to Rumos Digital Bank!</h3>
 
-        <h3>Login</h3>
+        <h4>Your bank - anytime, anywhere</h4>
 
-        <label for="fiscalNumber">Fiscal Number</label>
-        <input class="form-control"
-               type="text"
-               id="fiscalNumber"
-               name="fiscalNumber"
-               placeholder="Enter your fiscal number"
-               pattern="[0-9]{9}"
-               required
-               title="Fiscal number must contain a minimum of 9 digits"/>
-
-        <label for="password">Password</label>
-        <input class="form-control"
-               type="password"
-               id="password"
-               name="password"
-               placeholder="Enter your password"
-               required/>
-
-        <button type="submit" onclick="" onmouseover="" formaction="/login" formmethod="get">Log In</button>
-        <a class="register" href="">Register</a>
+        <button type="submit">Start</button>
     </form>
 
+    <footer>
+        <p>&copy; 2023 Rumos Digital Bank</p>
+    </footer>
 </div>
 </body>
 </html>

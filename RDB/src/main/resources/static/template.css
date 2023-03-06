@@ -10,16 +10,16 @@ body {
     background-color: #080710;
 }
 
-.login-background {
-    width: 430px;
+.background {
     height: 520px;
+    width: 430px;
     position: absolute;
     transform: translate(-50%, -50%);
     left: 50%;
     top: 50%;
 }
 
-.login-background .shape {
+.background .shape {
     height: 200px;
     width: 200px;
     position: absolute;
@@ -46,7 +46,7 @@ body {
 }
 
 form {
-    height: 490px;
+    height: 500px;
     width: 400px;
     background-color: rgba(255, 255, 255, 0.13);
     position: absolute;
@@ -115,20 +115,17 @@ button:hover {
     color: #ffffff;
 }
 
-.register {
-    display: block;
-    text-align: center;
+footer {
+    font-family: 'Poppins', sans-serif;
+    position: absolute;
     margin-top: 5px;
     width: 100%;
     color: #ffffff;
+    height: 50px;
     padding: 15px 0;
     font-size: 15px;
     font-weight: 300;
     border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.register:hover {
-    text-decoration: underline;
+    text-align: center;
+    bottom: 0;
 }

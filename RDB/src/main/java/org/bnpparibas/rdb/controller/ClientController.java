@@ -26,11 +26,6 @@ public class ClientController {
         return clientService.findByFiscalNumber(fiscalNumber);
     }
 
-    @PostMapping("/addClient")
-    public ResponseEntity<Object> postAddClient(@RequestBody Client client, Long nif) {
-        return clientService.addClient(client, nif);
-    }
-
     @GetMapping("/updateClient")
     public ResponseEntity<Object> getUpdateClient(@RequestBody Client client, Long fiscalNumber) {
         return clientService.updateClient(client, fiscalNumber);
