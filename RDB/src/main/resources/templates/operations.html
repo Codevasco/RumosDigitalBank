@@ -1,0 +1,67 @@
+<!--
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Rumos Digital Bank - Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Vasco Gonçalves">
+    <meta name="description" content="Banking Application">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap">
+    <link rel="stylesheet" type="text/css" href="/template.css">
+
+    <style>
+        form {
+            overflow: auto;
+            height: 700px;
+            width: 500px;
+            position: absolute;
+            scrollbar-width: none;
+        }
+
+        .shape:first-child {
+            left: -120px;
+            top: -180px;
+        }
+
+        .shape:last-child {
+            right: -120px;
+            bottom: -180px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+</div>
+
+<div class="registration-form">
+    <form th:object="${deposit, withdrawal, transfer}">
+
+        <h3>Registration</h3>
+
+        <label for="fiscalNumber">Fiscal Number</label>
+        <input class="form-control"
+               type="text"
+               id="fiscalNumber"
+               th:field="*{fiscalNumber}"
+               placeholder="Enter your fiscal number"
+               pattern="[0-9]{9}"
+               required
+               title="Fiscal number must contain a minimum of 9 digits"/>
+
+        <button type="submit" onclick="" onmouseover="">Register</button>
+    </form>
+
+    <footer>
+        <p>&copy; 2023 Rumos Digital Bank</p>
+    </footer>
+</div>
+</body>
+</html>-->
