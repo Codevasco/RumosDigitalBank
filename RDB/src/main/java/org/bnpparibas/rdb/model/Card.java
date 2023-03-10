@@ -22,13 +22,11 @@ public class Card {
     @Column(name = "CARD_PIN", nullable = false, updatable = false)
     private Integer cardPin;
 
-    @OneToOne
-    @JoinColumn(name = "CARD_OWNER_FK", nullable = false)
-    private Client cardOwner;
+    @Column(name = "CARD_OWNER", nullable = false)
+    private Long cardOwner;
 
-    @OneToOne
-    @JoinColumn(name = "CARD_ACCOUNT_FK", nullable = false)
-    private Account cardAccount;
+    @Column(name = "CARD_ACCOUNT", nullable = false)
+    private Long cardAccount;
 
     @Column(name = "WITHDRAWALS_PER_DAY")
     private Integer withdrawalsPerDay;

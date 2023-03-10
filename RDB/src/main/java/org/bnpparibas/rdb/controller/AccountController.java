@@ -29,9 +29,10 @@ public class AccountController {
         Client client = (Client) session.getAttribute("client");
 
         if (client != null) {
+            List <Account> accounts = accountService.findAllAccounts();
             model.addAttribute("client", client);
             model.addAttribute("account", account);
-            accountService.findAllAccounts();
+            model.addAttribute("accounts", accounts);
             return "accounts";
         } else {
             return "redirect:/login";

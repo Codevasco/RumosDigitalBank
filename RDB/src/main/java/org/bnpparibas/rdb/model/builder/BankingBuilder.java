@@ -32,8 +32,8 @@ public class BankingBuilder {
 
         return Account.builder()
                 .accountNumber(account.getAccountNumber())
-                .primaryHolder(clientBuilder(account.getPrimaryHolder()))
-                .secondaryHolder(clientBuilder(account.getSecondaryHolder()))
+                .primaryHolder(account.getPrimaryHolder())
+                .secondaryHolder(account.getSecondaryHolder())
                 .balance(account.getBalance())
                 .build();
     }

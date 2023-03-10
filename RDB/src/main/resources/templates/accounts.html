@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Rumos Digital Bank - Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Vasco Gonçalves">
+    <meta name="description" content="Banking Application">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap">
+    <link rel="stylesheet" type="text/css" href="/template.css">
+
+    <style>
+        form {
+            overflow: auto;
+            height: 700px;
+            width: 700px;
+            position: absolute;
+            scrollbar-width: none;
+        }
+
+        .shape:first-child {
+            left: -120px;
+            top: -180px;
+        }
+
+        .shape:last-child {
+            right: -120px;
+            bottom: -180px;
+        }
+
+        table {
+            border-collapse: separate;
+            border-spacing: 0 15px;
+        }
+
+        table, th, td {
+            padding: 5px;
+            text-align: left;
+            font-family: 'Poppins', sans-serif;
+            margin-top: 5px;
+        }
+
+        th, td {
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #080710;
+            color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+
+        tr:hover {
+            background-color: white;
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+</div>
+
+<div class="accounts-form">
+    <form th:action="@{/accounts}" th:object="${account}" method="get">
+
+        <h3>Accounts</h3>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Account Number</th>
+                <th>Balance</th>
+                <th>Primary Holder</th>
+                <th>Secondary Holder</th>
+                <th>Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="account : ${accounts}">
+                <td th:text="${account.accountNumber}"></td>
+                <td th:text="${account.balance}"></td>
+                <td th:text="${account.primaryHolder}"></td>
+                <td th:text="${account.secondaryHolder}"></td>
+                <td><a class="linkable" th:href="@{/accounts/selectedAccounts}">Edit</a></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </form>
+
+    <footer>
+        <p>&copy; 2023 Rumos Digital Bank</p>
+    </footer>
+</div>
+</body>
+</html>
