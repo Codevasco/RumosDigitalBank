@@ -29,7 +29,7 @@ public class AccountController {
         Client client = (Client) session.getAttribute("client");
 
         if (client != null) {
-            List <Account> accounts = accountService.findAllAccounts();
+            List <Account> accounts = accountService.findAllAccounts(client.getFiscalNumber());
             model.addAttribute("client", client);
             model.addAttribute("account", account);
             model.addAttribute("accounts", accounts);
@@ -41,7 +41,7 @@ public class AccountController {
 
     /** Shows page for single account page for specific client */
     @GetMapping("/accounts/selectedAccount")
-    public String showSingleAccount(@ModelAttribute("account") Account account, @RequestParam Long accountNumber, Model model, HttpSession session) {
+    public String showSingleAccount(@ModelAttribute("account") Account account, @RequestParam Integer accountNumber, Model model, HttpSession session) {
 
         Client client = (Client) session.getAttribute("client");
 
@@ -72,8 +72,8 @@ public class AccountController {
 
     /** API call for updating account secondary holder, redirects to specific account page */
     @PostMapping("/accounts/selectedAccount/update")
-    public String postUpdateAccount(@ModelAttribute("account") Account account, @RequestParam Long fiscalNumber) {
-        accountService.updateAccount(account, fiscalNumber);
+    public String postUpdateAccount(@ModelAttribute("account") Account account, @RequestParam Integer accountNumber) {
+        accountService.updateAccount(account, accountNumber);
         return "redirect:/accounts/selectedAccount";
     }
 
@@ -116,7 +116,7 @@ public class AccountController {
 
     /** API call to delete an existing account, redirects to all accounts page */
     @DeleteMapping("accounts/selectedAccount/delete")
-    public String postDeleteAccount(@RequestParam Long accountNumber) {
+    public String postDeleteAccount(@RequestParam Integer accountNumber) {
 
         accountService.deleteAccount(accountNumber);
         return "redirect:/accounts";

@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Transfer {
 
-    private Long fromAccountNumber;
+    private Integer fromAccountNumber;
 
-    private Long toAccountNumber;
+    private Integer toAccountNumber;
 
     private Double transferAmount;
 }

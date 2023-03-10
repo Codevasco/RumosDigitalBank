@@ -17,7 +17,7 @@ public class Account {
     private Integer accountId;
 
     @Column(name = "ACCOUNT_NUMBER", nullable = false, updatable = false, unique = true)
-    private Long accountNumber;
+    private Integer accountNumber;
 
     @Column(name = "PRIMARY_HOLDER", nullable = false)
     private Long primaryHolder;

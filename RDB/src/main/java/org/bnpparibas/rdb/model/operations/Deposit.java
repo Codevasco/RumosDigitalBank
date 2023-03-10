@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Deposit {
 
-    private Long accountNumber;
+    private Integer accountNumber;
 
     private Double depositAmount;
 }

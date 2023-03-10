@@ -169,7 +169,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<Transaction> findTransanctionsByAccountNumber(Long accountNumber) {
+    public List<Transaction> findTransanctionsByAccountNumber(Integer accountNumber) {
 
         List<Transaction> transactions = new ArrayList<>();
         Optional<Account> accountOptional = accountRepository.findByAccountNumber(accountNumber);

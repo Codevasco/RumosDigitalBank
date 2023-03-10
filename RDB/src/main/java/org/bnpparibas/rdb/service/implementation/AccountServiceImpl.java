@@ -31,10 +31,10 @@ public class AccountServiceImpl implements AccountService {
 
 
     @Override
-    public List<Account> findAllAccounts() {
+    public List<Account> findAllAccounts(Long primaryHolder) {
 
         List<Account> accounts = new ArrayList<>();
-        Iterable<Account> accountList = accountRepository.findAll();
+        Iterable<Account> accountList = accountRepository.findByPrimaryHolder(primaryHolder);
 
         accountList.forEach(account -> {
             accounts.add(bankingBuilder.accountBuilder(account));
@@ -47,7 +47,7 @@ public class AccountServiceImpl implements AccountService {
      * Finds account by account number
      */
     @Override
-    public ResponseEntity<Object> findByAccountNumber(Long accountNumber) {
+    public ResponseEntity<Object> findByAccountNumber(Integer accountNumber) {
 
         Optional<Account> accountOptional = accountRepository.findByAccountNumber(accountNumber);
 
@@ -75,7 +75,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public ResponseEntity<Object> updateAccount(Account account, Long accountNumber) {
+    public ResponseEntity<Object> updateAccount(Account account, Integer accountNumber) {
 
         Optional<Account> accountOptional = accountRepository.findByAccountNumber(accountNumber);
 
@@ -95,7 +95,7 @@ public class AccountServiceImpl implements AccountService {
      * Deletes an existing account
      */
     @Override
-    public ResponseEntity<Object> deleteAccount(Long accountNumber) {
+    public ResponseEntity<Object> deleteAccount(Integer accountNumber) {
 
         Optional<Account> accountOptional = accountRepository.findByAccountNumber(accountNumber);
 

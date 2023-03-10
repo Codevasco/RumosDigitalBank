@@ -2,6 +2,7 @@ package org.bnpparibas.rdb.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -19,7 +20,7 @@ public class Transaction {
     private Integer transactionId;
 
     @Column(name = "ACCOUNT_NUMBER", nullable = false, unique = true)
-    private Long accountNumber;
+    private Integer accountNumber;
 
     @Column(name = "TRANSACTION_TYPE", nullable = false)
     private String transactionType;
@@ -28,6 +29,7 @@ public class Transaction {
     private String transactionAmount;
 
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "DATE_TRANSACTION", nullable = false)
     private Date transactionDate;
 }

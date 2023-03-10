@@ -14,7 +14,7 @@ public interface CardService {
 
     ResponseEntity<Object> findByCardNumber(Long cardNumber);
 
-    ResponseEntity<Object> addCard(Card card, Long accountNumber);
+    ResponseEntity<Object> addCard(Card card, Integer accountNumber);
 
     ResponseEntity<Object> updateCardPin(Card card, Long cardNumber);
 

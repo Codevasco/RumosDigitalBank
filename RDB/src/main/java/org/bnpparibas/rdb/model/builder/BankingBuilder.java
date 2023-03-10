@@ -42,9 +42,8 @@ public class BankingBuilder {
 
         return Card.builder()
                 .cardPin(card.getCardPin())
-                .cardOwner(card.getCardOwner())
-                .cardAccount(card.getCardAccount())
-                .withdrawalsPerDay(card.getWithdrawalsPerDay())
+                .client(card.getClient())
+                .account(card.getAccount())
                 .withdrawnAmountPerDay(card.getWithdrawnAmountPerDay())
                 .build();
     }
@@ -59,16 +58,7 @@ public class BankingBuilder {
                 .build();
     }
 
-    public Transaction newTransaction(Transfer transfer, Long accountNumber, String transactionType) {
-
-        return Transaction.builder()
-                .accountNumber(accountNumber)
-                .transactionType(transactionType)
-                .transactionAmount(transfer.getTransferAmount().toString())
-                .build();
-    }
-
-    public Transaction newTransaction(Deposit deposit, Long accountNumber, String transactionType) {
+    public Transaction newTransaction(Deposit deposit, Integer accountNumber, String transactionType) {
 
         return Transaction.builder()
                 .accountNumber(accountNumber)
@@ -77,7 +67,7 @@ public class BankingBuilder {
                 .build();
     }
 
-    public Transaction newTransaction(Withdrawal withdrawal, Long accountNumber, String transactionType) {
+    public Transaction newTransaction(Withdrawal withdrawal, Integer accountNumber, String transactionType) {
 
         return Transaction.builder()
                 .accountNumber(accountNumber)
@@ -85,4 +75,14 @@ public class BankingBuilder {
                 .transactionAmount(withdrawal.getWithdrawalAmount().toString())
                 .build();
     }
+
+    public Transaction newTransaction(Transfer transfer, Integer accountNumber, String transactionType) {
+
+        return Transaction.builder()
+                .accountNumber(accountNumber)
+                .transactionType(transactionType)
+                .transactionAmount(transfer.getTransferAmount().toString())
+                .build();
+    }
+
 }

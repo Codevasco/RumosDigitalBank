@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface AccountService {
 
-    List<Account> findAllAccounts();
+    List<Account> findAllAccounts(Long fiscalNumber);
 
-    ResponseEntity<Object> findByAccountNumber(Long accountNumber);
+    ResponseEntity<Object> findByAccountNumber(Integer accountNumber);
 
     ResponseEntity<Object> addAccount(Account account, Long fiscalNumber);
 
-    ResponseEntity<Object> updateAccount(Account account, Long accountNumber);
+    ResponseEntity<Object> updateAccount(Account account, Integer accountNumber);
 
-    ResponseEntity<Object> deleteAccount(Long accountNumber);
+    ResponseEntity<Object> deleteAccount(Integer accountNumber);
 }

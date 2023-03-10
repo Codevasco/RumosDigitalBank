@@ -60,7 +60,7 @@ public class CardServiceImpl implements CardService {
      * Creates a new card
      */
     @Override
-    public ResponseEntity<Object> addCard(Card card, Long accountNumber) {
+    public ResponseEntity<Object> addCard(Card card, Integer accountNumber) {
 
         Optional<Account> accountOptional = accountRepository.findByAccountNumber(accountNumber);
 

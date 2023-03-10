@@ -55,7 +55,7 @@ public class TransactionController {
     }
 
     @GetMapping("/transactions")
-    public String showTransactionsByAccountNumber(@ModelAttribute("account") Account account, @RequestParam Long accountNumber, Model
+    public String showTransactionsByAccountNumber(@ModelAttribute("account") Account account, @RequestParam Integer accountNumber, Model
             model, HttpSession session) {
 
         Client client = (Client) session.getAttribute("client");

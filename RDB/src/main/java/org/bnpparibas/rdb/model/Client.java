@@ -29,8 +29,8 @@ public class Client {
     private String lastName;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "DATE_OF_BIRTH")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "DATE_OF_BIRTH")
     private Date dateOfBirth;
 
     @Column(name = "PASSWORD", nullable = false)

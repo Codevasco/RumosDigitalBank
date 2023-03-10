@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Withdrawal {
 
-    private Long accountNumber;
+    private Integer accountNumber;
 
     private Double withdrawalAmount;
 }

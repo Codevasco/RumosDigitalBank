@@ -95,8 +95,8 @@ public class CardController {
 
     /** API call for creating a new card, redirects to all cards page */
     @PostMapping("/cards/addCard")
-    public String postAddCard(@ModelAttribute("card") Card card, @RequestParam Long cardNumber) {
-        cardService.addCard(card, cardNumber);
+    public String postAddCard(@ModelAttribute("card") Card card, @RequestParam Integer accountNumber) {
+        cardService.addCard(card, accountNumber);
         return "redirect:/cards/";
     }
 

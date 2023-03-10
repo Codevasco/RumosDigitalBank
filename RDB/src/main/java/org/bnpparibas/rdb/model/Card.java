@@ -22,14 +22,11 @@ public class Card {
     @Column(name = "CARD_PIN", nullable = false, updatable = false)
     private Integer cardPin;
 
-    @Column(name = "CARD_OWNER", nullable = false)
-    private Long cardOwner;
+    @Column(name = "CLIENT", nullable = false)
+    private Long client;
 
-    @Column(name = "CARD_ACCOUNT", nullable = false)
-    private Long cardAccount;
-
-    @Column(name = "WITHDRAWALS_PER_DAY")
-    private Integer withdrawalsPerDay;
+    @Column(name = "ACCOUNT", nullable = false)
+    private Integer account;
 
     @Column(name ="WITHDRAWN_AMOUNT_PER_DAY")
     private Double withdrawnAmountPerDay;

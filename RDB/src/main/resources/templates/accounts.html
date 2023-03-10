@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Rumos Digital Bank - Login</title>
+    <title>Rumos Digital Bank - Accounts</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
     <meta http-equiv="X-UA-Compatible" content="IE=9"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,48 +16,26 @@
     <style>
         form {
             overflow: auto;
-            height: 700px;
+            height: 480px;
             width: 700px;
             position: absolute;
             scrollbar-width: none;
         }
 
         .shape:first-child {
-            left: -120px;
-            top: -180px;
+            left: -220px;
+            top: -70px;
         }
 
         .shape:last-child {
-            right: -120px;
-            bottom: -180px;
+            right: -220px;
+            bottom: -70px;
         }
 
-        table {
-            border-collapse: separate;
-            border-spacing: 0 15px;
-        }
-
-        table, th, td {
-            padding: 5px;
-            text-align: left;
-            font-family: 'Poppins', sans-serif;
-            margin-top: 5px;
-        }
-
-        th, td {
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #080710;
-            color: white;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-        }
-
-
-        tr:hover {
-            background-color: white;
+        button {
+            width: 40%;
+            display: grid;
+            margin: auto;
         }
 
     </style>
@@ -94,7 +72,8 @@
             </tr>
             </tbody>
         </table>
-
+        <button type="button" onclick="window.location.href='/accounts/addAccount';">Create Account</button>
+        <a class="linkable" th:href="@{/logout}">Logout</a>
     </form>
 
     <footer>

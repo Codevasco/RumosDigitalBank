@@ -15,5 +15,5 @@ public interface TransactionService {
 
     ResponseEntity<Object> transfer(Transfer transfer, Long fiscalNumber);
 
-    List<Transaction> findTransanctionsByAccountNumber(Long accountNumber);
+    List<Transaction> findTransanctionsByAccountNumber(Integer accountNumber);
 }
