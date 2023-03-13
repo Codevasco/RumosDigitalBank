@@ -10,13 +10,14 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CardService {
-    List<Card> findAllCards();
 
-    ResponseEntity<Object> findByCardNumber(Long cardNumber);
+    List<Card> findAllCards(Long client);
 
-    ResponseEntity<Object> addCard(Card card, Integer accountNumber);
+    ResponseEntity<Object> findByCardNumber(Integer cardNumber);
 
-    ResponseEntity<Object> updateCardPin(Card card, Long cardNumber);
+    ResponseEntity<Object> addCard(Card card, Long fiscalNumber, Integer accountNumber);
 
-    ResponseEntity<Object> deleteCard(Long cardNumber);
+    ResponseEntity<Object> updateCardPin(Card card, Integer cardNumber);
+
+    ResponseEntity<Object> deleteCard(Integer cardNumber);
 }

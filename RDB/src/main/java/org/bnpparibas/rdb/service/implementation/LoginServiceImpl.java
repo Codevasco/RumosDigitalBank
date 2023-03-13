@@ -7,8 +7,6 @@ import org.bnpparibas.rdb.repository.CardRepository;
 import org.bnpparibas.rdb.repository.ClientRepository;
 import org.bnpparibas.rdb.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -31,7 +29,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public Card atmLogin(Long cardNumber, Integer cardPin) {
+    public Card atmLogin(Integer cardNumber, Integer cardPin) {
 
         Optional<Card> card = cardRepository.findByCardNumberAndCardPin(cardNumber, cardPin);
         return card.orElse(null);

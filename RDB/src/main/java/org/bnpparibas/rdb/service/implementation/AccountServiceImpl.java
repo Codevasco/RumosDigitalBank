@@ -2,7 +2,6 @@ package org.bnpparibas.rdb.service.implementation;
 
 import jakarta.transaction.Transactional;
 import org.bnpparibas.rdb.model.Account;
-import org.bnpparibas.rdb.model.Client;
 import org.bnpparibas.rdb.model.builder.BankingBuilder;
 import org.bnpparibas.rdb.repository.AccountRepository;
 import org.bnpparibas.rdb.repository.ClientRepository;
@@ -60,11 +59,12 @@ public class AccountServiceImpl implements AccountService {
      * Creates a new account
      */
     @Override
-    public ResponseEntity<Object> addAccount(Account account, Long fiscalNumber) {
+    public ResponseEntity<Object> addAccount(Account account, Long primaryHolder, Long secondaryHolder) {
 
-        Optional<Client> clientOptional = clientRepository.findByFiscalNumber(fiscalNumber);
+        Optional<Account> accountOptional = accountRepository.findByPrimaryHolderAndSecondaryHolder(primaryHolder, secondaryHolder);
 
-        if (clientOptional.isPresent()) {
+        if (accountOptional.isPresent()) {
+
             account.setBalance(50.0);
             accountRepository.save(bankingBuilder.accountBuilder(account));
 
@@ -83,7 +83,7 @@ public class AccountServiceImpl implements AccountService {
             Account accountBody = accountOptional.get();
 
             accountBody.setSecondaryHolder(account.getSecondaryHolder());
-            accountRepository.save(account);
+            accountRepository.save(accountBody);
 
             return ResponseEntity.status(HttpStatus.OK).body("Client updated successfully.");
         } else {

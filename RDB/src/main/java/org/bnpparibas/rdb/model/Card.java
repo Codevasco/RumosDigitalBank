@@ -17,17 +17,14 @@ public class Card {
     private Integer cardId;
 
     @Column(name = "CARD_NUMBER", nullable = false, updatable = false, unique = true)
-    private Long cardNumber;
+    private Integer cardNumber;
 
     @Column(name = "CARD_PIN", nullable = false, updatable = false)
     private Integer cardPin;
 
-    @Column(name = "CLIENT", nullable = false)
-    private Long client;
+    @Column(name = "FISCAL_NUMBER", nullable = false)
+    private Long fiscalNumber;
 
-    @Column(name = "ACCOUNT", nullable = false)
-    private Integer account;
-
-    @Column(name ="WITHDRAWN_AMOUNT_PER_DAY")
-    private Double withdrawnAmountPerDay;
+    @Column(name = "ACCOUNT_NUMBER", nullable = false)
+    private Integer accountNumber;
 }

@@ -1,7 +1,6 @@
 package org.bnpparibas.rdb.service.implementation;
 
 import jakarta.transaction.Transactional;
-import org.bnpparibas.rdb.model.Account;
 import org.bnpparibas.rdb.model.Card;
 import org.bnpparibas.rdb.model.builder.BankingBuilder;
 import org.bnpparibas.rdb.repository.AccountRepository;
@@ -31,10 +30,10 @@ public class CardServiceImpl implements CardService {
 
 
     @Override
-    public List<Card> findAllCards() {
+    public List<Card> findAllCards(Long fiscalNumber) {
 
         List<Card> cards = new ArrayList<>();
-        Iterable<Card> cardList = cardRepository.findAll();
+        Iterable<Card> cardList = cardRepository.findByFiscalNumber(fiscalNumber);
 
         cardList.forEach(card -> {
             cards.add(bankingBuilder.cardBuilder(card));
@@ -47,7 +46,7 @@ public class CardServiceImpl implements CardService {
      * Finds card by card number
      */
     @Override
-    public ResponseEntity<Object> findByCardNumber(Long cardNumber) {
+    public ResponseEntity<Object> findByCardNumber(Integer cardNumber) {
 
         Optional<Card> cardOptional = cardRepository.findByCardNumber(cardNumber);
 
@@ -60,11 +59,11 @@ public class CardServiceImpl implements CardService {
      * Creates a new card
      */
     @Override
-    public ResponseEntity<Object> addCard(Card card, Integer accountNumber) {
+    public ResponseEntity<Object> addCard(Card card, Long fiscalNumber, Integer accountNumber) {
 
-        Optional<Account> accountOptional = accountRepository.findByAccountNumber(accountNumber);
+        Optional<Card> cardOptional = cardRepository.findByFiscalNumberAndAccountNumber(fiscalNumber, accountNumber);
 
-        if (accountOptional.isPresent()) {
+        if (cardOptional.isPresent()) {
             cardRepository.save(bankingBuilder.cardBuilder(card));
 
             return ResponseEntity.status(HttpStatus.CREATED).body("Card created successfully.");
@@ -77,7 +76,7 @@ public class CardServiceImpl implements CardService {
      * Updates card details
      */
     @Override
-    public ResponseEntity<Object> updateCardPin(Card card, Long cardNumber) {
+    public ResponseEntity<Object> updateCardPin(Card card, Integer cardNumber) {
 
         Optional<Card> cardOptional = cardRepository.findByCardNumber(cardNumber);
 
@@ -96,7 +95,7 @@ public class CardServiceImpl implements CardService {
      * Deletes an existing card
      */
     @Override
-    public ResponseEntity<Object> deleteCard(Long cardNumber) {
+    public ResponseEntity<Object> deleteCard(Integer cardNumber) {
 
         Optional<Card> cardOptional = cardRepository.findByCardNumber(cardNumber);
 

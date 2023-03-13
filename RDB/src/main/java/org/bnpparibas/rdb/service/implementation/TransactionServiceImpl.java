@@ -172,12 +172,11 @@ public class TransactionServiceImpl implements TransactionService {
     public List<Transaction> findTransanctionsByAccountNumber(Integer accountNumber) {
 
         List<Transaction> transactions = new ArrayList<>();
-        Optional<Account> accountOptional = accountRepository.findByAccountNumber(accountNumber);
+        Iterable<Transaction> transactionList = transactionRepository.findAll();
 
-        if (accountOptional.isPresent()) {
-            Optional<List<Transaction>> transactionList = transactionRepository.findTransactionByAccountNumber(accountNumber);
-            transactionList.ifPresent(list -> list.forEach(transaction -> transactions.add(bankingBuilder.transactionBuilder(transaction))));
-        }
+        transactionList.forEach(transaction -> {
+            transactions.add(bankingBuilder.transactionBuilder(transaction));
+        });
 
         return transactions;
     }

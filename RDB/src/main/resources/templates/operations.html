@@ -38,22 +38,11 @@
             cursor: pointer;
         }
 
-        .linkable {
-            display: block;
+        form h4 {
+            font-weight: 500;
+            line-height: 42px;
             text-align: center;
-            margin-top: 5px;
-            width: 100%;
-            color: #ffffff;
-            padding: 15px 0;
-            font-size: 15px;
-            font-weight: 300;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .linkable:hover {
-            text-decoration: underline;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -66,12 +55,9 @@
 
 <div class="operations-form">
     <form>
-
-        <h3>Operations</h3>
-
-        <button type="button" onclick="window.location.href='/operations/deposit';">Deposit</button>
-        <button type="button" onclick="window.location.href='/operations/withdrawal';">Withdrawal</button>
-        <button type="button" onclick="window.location.href='/operations/transfer';">Transfer</button>
+        <button type="button" onclick="window.location.href='/deposit';">Deposit</button>
+        <button type="button" onclick="window.location.href='/withdrawal';">Withdrawal</button>
+        <button type="button" onclick="window.location.href='/transfer';">Transfer</button>
         <a class="linkable" th:href="@{/logout}">Logout</a>
     </form>
 

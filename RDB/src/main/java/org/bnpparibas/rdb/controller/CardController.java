@@ -22,41 +22,25 @@ public class CardController {
 
     /** Shows page listing all cards for specific account */
     @GetMapping("/cards")
-    public String showCards(@ModelAttribute("card") Card card, @RequestBody Account account, Model model, HttpSession session) {
+    public String showCards(@ModelAttribute("card") Card card, Account account, Model model, HttpSession session) {
 
         Client client = (Client) session.getAttribute("client");
 
         if (client != null) {
+            List <Card> cards = cardService.findAllCards(client.getFiscalNumber());
             model.addAttribute("client", client);
             model.addAttribute("account", account);
             model.addAttribute("card", card);
-            cardService.findAllCards();
+            model.addAttribute("cards", cards);
             return "cards";
         } else {
             return "redirect:/login";
         }
     }
 
-    /** Shows page for single card page for specific account */
-    @GetMapping("/cards/selectedCard")
-    public String showSingleCard(@ModelAttribute("card") Card card, @RequestBody Account account, @RequestParam Long cardNumber, Model model, HttpSession session) {
-
-        Client client = (Client) session.getAttribute("client");
-
-        if (client != null) {
-            model.addAttribute("client", client);
-            model.addAttribute("account", account);
-            model.addAttribute("card", card);
-            cardService.findByCardNumber(cardNumber);
-            return "cards/selectedCard";
-        } else {
-            return "redirect:/login";
-        }
-    }
-
     /** Shows page for card pin update */
-    @GetMapping("/cards/selectedCard/update")
-    public String showUpdateCard(@ModelAttribute("card") Card card, @RequestBody Account account, Model model, HttpSession session) {
+    @GetMapping("/cards-update")
+    public String showUpdateCard(@ModelAttribute("card") Card card, Account account, Model model, HttpSession session) {
 
         Client client = (Client) session.getAttribute("client");
 
@@ -64,22 +48,22 @@ public class CardController {
             model.addAttribute("client", client);
             model.addAttribute("account", account);
             model.addAttribute("card", card);
-            return "cards/selectedCard/update";
+            return "cards-update";
         } else {
             return "redirect:/login";
         }
     }
 
     /** API call for updating card pin, redirects to specific card page */
-    @PostMapping("/cards/selectedCard/update")
-    public String postUpdateCard(@ModelAttribute("card") Card card, @RequestParam Long cardNumber) {
+    @PostMapping("/cards-update")
+    public String postUpdateCard(@ModelAttribute("card") Card card, @RequestParam Integer cardNumber) {
         cardService.updateCardPin(card, cardNumber);
-        return "redirect:/cards/selectedCard";
+        return "redirect:/cards";
     }
 
     /** Shows page for creating a new card */
-    @GetMapping("/cards/addCard")
-    public String showAddCard(@ModelAttribute("card") Card card, @RequestBody Account account, Model model, HttpSession session) {
+    @GetMapping("/cards-create")
+    public String showAddCard(@ModelAttribute("card") Card card, Account account, Model model, HttpSession session) {
 
         Client client = (Client) session.getAttribute("client");
 
@@ -87,38 +71,37 @@ public class CardController {
             model.addAttribute("client", client);
             model.addAttribute("account", account);
             model.addAttribute("card", new Card());
-            return "cards/addCard";
+            return "cards-create";
         } else {
             return "redirect:/login";
         }
     }
 
     /** API call for creating a new card, redirects to all cards page */
-    @PostMapping("/cards/addCard")
-    public String postAddCard(@ModelAttribute("card") Card card, @RequestParam Integer accountNumber) {
-        cardService.addCard(card, accountNumber);
-        return "redirect:/cards/";
+    @PostMapping("/cards-create")
+    public String postAddCard(@ModelAttribute("card") Card card, @RequestParam Long fiscalNumber, @RequestParam Integer accountNumber) {
+        cardService.addCard(card, fiscalNumber, accountNumber);
+        return "redirect:/cards";
     }
 
     /** Shows page for deleting an existing card */
-    @GetMapping("/cards/selectedCard/delete")
-    public String showDeleteCard(@ModelAttribute("card") Card card, @RequestBody Account account, Model model, HttpSession session) {
+    @GetMapping("/cards-delete")
+    public String showDeleteCard(@ModelAttribute("card") Card card, Account account, Model model, HttpSession session) {
 
         Client client = (Client) session.getAttribute("client");
 
         if (client != null) {
             model.addAttribute("client", client);
             model.addAttribute("account", account);
-            return "cards/selectedCard/delete";
+            return "cards-delete";
         } else {
             return "redirect:/login";
         }
     }
 
     /** API call to delete an existing card, redirects to all cards page */
-    @DeleteMapping("/cards/selectedCard/delete")
-    public String postDeleteCard(@RequestParam Long cardNumber) {
-
+    @PostMapping("/cards-delete")
+    public String postDeleteCard(@RequestParam Integer cardNumber) {
         cardService.deleteCard(cardNumber);
         return "redirect:/cards";
     }

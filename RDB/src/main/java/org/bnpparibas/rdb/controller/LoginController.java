@@ -48,7 +48,7 @@ public class LoginController {
 
     /** API call for login, redirects to dashboard */
     @PostMapping("/atm-login")
-    public String postAtmLogin(@RequestParam Long cardNumber, @RequestParam Integer cardPin, HttpSession session) {
+    public String postAtmLogin(@RequestParam Integer cardNumber, @RequestParam Integer cardPin, HttpSession session) {
 
        Card card = webService.atmLogin(cardNumber, cardPin);
 

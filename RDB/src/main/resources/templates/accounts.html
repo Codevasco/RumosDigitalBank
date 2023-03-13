@@ -17,18 +17,18 @@
         form {
             overflow: auto;
             height: 480px;
-            width: 700px;
+            width: 800px;
             position: absolute;
             scrollbar-width: none;
         }
 
         .shape:first-child {
-            left: -220px;
+            left: -280px;
             top: -70px;
         }
 
         .shape:last-child {
-            right: -220px;
+            right: -280px;
             bottom: -70px;
         }
 
@@ -60,6 +60,7 @@
                 <th>Primary Holder</th>
                 <th>Secondary Holder</th>
                 <th>Details</th>
+                <th>Status</th>
             </tr>
             </thead>
             <tbody>
@@ -68,11 +69,12 @@
                 <td th:text="${account.balance}"></td>
                 <td th:text="${account.primaryHolder}"></td>
                 <td th:text="${account.secondaryHolder}"></td>
-                <td><a class="linkable" th:href="@{/accounts/selectedAccounts}">Edit</a></td>
+                <td><a class="linkable" th:href="@{/accounts-update}" style="font-weight: 450">Edit</a></td>
+                <td><a class="linkable" th:href="@{/accounts-delete}" style="font-weight: 450">Delete</a></td>
             </tr>
             </tbody>
         </table>
-        <button type="button" onclick="window.location.href='/accounts/addAccount';">Create Account</button>
+        <button type="button" onclick="window.location.href='/accounts-create';">Create Account</button>
         <a class="linkable" th:href="@{/logout}">Logout</a>
     </form>
 

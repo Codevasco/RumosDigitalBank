@@ -15,15 +15,15 @@
 
     <style>
         .shape:first-child {
-            top: -140px;
+            top: -190px;
         }
 
         .shape:last-child {
-            bottom: -140px;
+            bottom: -190px;
         }
 
         form {
-            height: 620px;
+            height: 720px;
         }
 
         form h4 {
@@ -44,24 +44,6 @@
             border-radius: 5px;
             cursor: pointer;
         }
-
-        .linkable {
-            display: block;
-            text-align: center;
-            margin-top: 5px;
-            width: 100%;
-            color: #ffffff;
-            padding: 15px 0;
-            font-size: 15px;
-            font-weight: 300;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .linkable:hover {
-            text-decoration: underline;
-        }
     </style>
 </head>
 
@@ -77,8 +59,9 @@
         <h3>Welcome, <span th:text="${client.firstName}"></span> <span th:text="${client.lastName}"></span>!</h3>
         <h4>Client Dashboard:</h4>
 
-        <button type="button" onclick="window.location.href='/information';">Information</button>
+        <button type="button" onclick="window.location.href='/clients';">Information</button>
         <button type="button" onclick="window.location.href='/accounts';">Accounts</button>
+        <button type="button" onclick="window.location.href='/cards';">Cards</button>
         <button type="button" onclick="window.location.href='/atm-login';">Operations</button>
         <button type="button" onclick="window.location.href='/transactions';">Transactions</button>
         <a class="linkable" th:href="@{/logout}">Logout</a>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Rumos Digital Bank - Delete Client</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Vasco Gonçalves">
+  <meta name="description" content="Banking Application">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap">
+  <link rel="stylesheet" type="text/css" href="/template.css">
+
+  <style>
+
+    form h4 {
+      font-weight: 500;
+      line-height: 42px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: darkred;
+    }
+  </style>
+</head>
+
+<body>
+<div class="background">
+  <div class="shape"></div>
+  <div class="shape"></div>
+</div>
+
+<div class="login-form">
+  <form th:action="@{/clients-delete}" th:object="${client}" th:method="post">
+
+    <h3>Delete Client</h3>
+
+    <h4>This action will permanently delete your client information.</h4>
+
+    <label for="accountNumber">Account Number</label>
+    <input class="form-control"
+           type="text"
+           id="accountNumber"
+           th:field="*{fiscalNumber}"
+           placeholder="Confirm your fiscal number"
+           pattern="[0-9]{9}"
+           required
+           title="Fiscal number must contain a minimum of 9 digits"/>
+
+    <button type="submit">Delete Client</button>
+    <a class="linkable" th:href="@{/clients}">Return to Information page</a>
+  </form>
+
+  <footer>
+    <p>&copy; 2023 Rumos Digital Bank</p>
+  </footer>
+</div>
+</body>
+</html>

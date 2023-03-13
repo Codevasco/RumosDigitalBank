@@ -41,10 +41,10 @@ public class BankingBuilder {
     public Card cardBuilder(Card card) {
 
         return Card.builder()
+                .cardNumber(card.getCardNumber())
                 .cardPin(card.getCardPin())
-                .client(card.getClient())
-                .account(card.getAccount())
-                .withdrawnAmountPerDay(card.getWithdrawnAmountPerDay())
+                .fiscalNumber(card.getFiscalNumber())
+                .accountNumber(card.getAccountNumber())
                 .build();
     }
 

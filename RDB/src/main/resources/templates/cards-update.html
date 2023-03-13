@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <title>Rumos Digital Bank - Operations Login</title>
+  <title>Rumos Digital Bank - Update Card</title>
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
   <meta http-equiv="X-UA-Compatible" content="IE=9"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,26 +12,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap">
   <link rel="stylesheet" type="text/css" href="/template.css">
-
-  <style>
-    .linkable {
-      display: block;
-      text-align: center;
-      margin-top: 5px;
-      width: 100%;
-      color: #ffffff;
-      padding: 15px 0;
-      font-size: 15px;
-      font-weight: 300;
-      border-radius: 5px;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .linkable:hover {
-      text-decoration: underline;
-    }
-  </style>
 </head>
 
 <body>
@@ -40,32 +20,33 @@
   <div class="shape"></div>
 </div>
 
-<div class="login-form">
-  <form th:action="@{/atm-login}" th:object="${card}" th:method="post">
+<div class="cardUpdate-form">
+  <form th:action="@{/cards-update}" th:object="${card}" th:method="post">
 
-    <h3>Operations Login</h3>
+    <h3>Update Card</h3>
 
     <label for="cardNumber">Card Number</label>
     <input class="form-control"
            type="text"
            id="cardNumber"
            th:field="*{cardNumber}"
-           placeholder="Enter your card number"
+           placeholder="Confirm your card number"
            pattern="[0-9]{4}"
            required
            title="Card number must contain a minimum of 4 digits"/>
 
-    <label for="cardPin">Pin</label>
+    <label for="cardPin">Card Pin</label>
     <input class="form-control"
            type="password"
            id="cardPin"
            th:field="*{cardPin}"
-           placeholder="Enter your pin number"
-           pattern="[0-4]{4}"
+           placeholder="Enter your new pin number"
+           pattern="[0-9]{4}"
            required
-           title="Card number must contain a minimum of 4 digits"/>/>
+           title="Pin number must contain a minimum of 4 digits"/>
 
-    <button type="submit">Log In</button>
+    <button type="submit">Submit</button>
+    <a class="linkable" th:href="@{/cards}">Return to Cards page</a>
   </form>
 
   <footer>

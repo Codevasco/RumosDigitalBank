@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <title>Rumos Digital Bank - Operations Login</title>
+  <title>Rumos Digital Bank - Delete Account</title>
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
   <meta http-equiv="X-UA-Compatible" content="IE=9"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,22 +14,16 @@
   <link rel="stylesheet" type="text/css" href="/template.css">
 
   <style>
-    .linkable {
-      display: block;
+
+    form h4 {
+      font-weight: 500;
+      line-height: 42px;
       text-align: center;
-      margin-top: 5px;
-      width: 100%;
-      color: #ffffff;
-      padding: 15px 0;
-      font-size: 15px;
-      font-weight: 300;
-      border-radius: 5px;
-      cursor: pointer;
-      text-decoration: none;
+      margin-top: 20px;
     }
 
-    .linkable:hover {
-      text-decoration: underline;
+    button:hover {
+      background-color: darkred;
     }
   </style>
 </head>
@@ -41,31 +35,24 @@
 </div>
 
 <div class="login-form">
-  <form th:action="@{/atm-login}" th:object="${card}" th:method="post">
+  <form th:action="@{/accounts-delete}" th:object="${account}" th:method="post">
 
-    <h3>Operations Login</h3>
+    <h3>Delete Account</h3>
 
-    <label for="cardNumber">Card Number</label>
+    <h4>This action will permanently delete your account.</h4>
+
+    <label for="accountNumber">Account Number</label>
     <input class="form-control"
            type="text"
-           id="cardNumber"
-           th:field="*{cardNumber}"
-           placeholder="Enter your card number"
+           id="accountNumber"
+           th:field="*{accountNumber}"
+           placeholder="Confirm your account number"
            pattern="[0-9]{4}"
            required
-           title="Card number must contain a minimum of 4 digits"/>
+           title="Account number must contain a minimum of 4 digits"/>
 
-    <label for="cardPin">Pin</label>
-    <input class="form-control"
-           type="password"
-           id="cardPin"
-           th:field="*{cardPin}"
-           placeholder="Enter your pin number"
-           pattern="[0-4]{4}"
-           required
-           title="Card number must contain a minimum of 4 digits"/>/>
-
-    <button type="submit">Log In</button>
+    <button type="submit">Delete Account</button>
+    <a class="linkable" th:href="@{/accounts}">Return to Accounts page</a>
   </form>
 
   <footer>

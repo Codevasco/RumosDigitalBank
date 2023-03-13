@@ -8,5 +8,5 @@ public interface LoginService {
 
     Client login(Long fiscalNumber, String password);
 
-    Card atmLogin(Long cardNumber, Integer cardPin);
+    Card atmLogin(Integer cardNumber, Integer cardPin);
 }
